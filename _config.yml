@@ -5,9 +5,9 @@ permalink:           pretty
 
 # Setup
 title:               J. Bradley Eustice
-tagline:             'Ph.D. Candidate [Economics], M.S. [Statitics]'
+tagline:             'Ph.D. Candidate [Economics], M.S. [Statistics]'
 description:         'A reserved <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:                 http://lanyon.getpoole.com
+url:                 https://www.jbradley
 baseurl:             '/lanyon'
 paginate:            5
 
