@@ -14,11 +14,16 @@
     <a class="sidebar-nav-item{% if page.title == "Resume" %} active{% endif %}" href="https://jbeustice.github.io/resume/">Resume</a>
     <a class="sidebar-nav-item" href="https://github.com/jbeustice/mySite/Resume.md">Download_CV</a>
     
-    {% assign pages_list = site.pages %}
+    {% comment %}
+      The code below dynamically generates a sidebar nav of pages with
+      `layout: page` in the front-matter. See readme for usage.
+    {% endcomment %}
+
+    {% assign pages_list = site.pages | sort:"url" %}
     {% for node in pages_list %}
       {% if node.title != null %}
         {% if node.layout == "page" %}
-          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
+          <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}" target="_blank">{{ node.title }}</a>
         {% endif %}
       {% endif %}
     {% endfor %}
