@@ -19,9 +19,9 @@ title: Home
 
 <div class="pagination">
   {% if paginator.next_page %}
-    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">Older</a>
+    <a class="pagination-item older" href="{{ site.baseurl }}/page{{paginator.next_page}}">''</a>
   {% else %}
-    <span class="pagination-item older">Older</span>
+    <span class="pagination-item older">''</span>
   {% endif %}
   {% if paginator.previous_page %}
     {% if paginator.page == 2 %}
