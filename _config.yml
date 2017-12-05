@@ -6,6 +6,8 @@ permalink:           pretty
 # Dependencies
 markdown:         kramdown
 pygments:         true
+paginate_path: "/page:num/"
+inter_post_navigation: true
 
 # Setup
 title:               J. Bradley Eustice
