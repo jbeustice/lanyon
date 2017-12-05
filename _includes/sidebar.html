@@ -9,10 +9,8 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="sidebar-nav-item{% if page.title == "Home" %} active{% endif %}" href="/">Home</a>
-    <a class="sidebar-nav-item{% if page.title == "About" %} active{% endif %}" href="https://www.cnn.com">About</a>
-    <a class="sidebar-nav-item{% if page.title == "Resume" %} active{% endif %}" href="https://jbeustice.github.io/resume/">Resume</a>
-    <a class="sidebar-nav-item" href="https://github.com/jbeustice/mySite/Resume.md">Download_CV</a>
+    <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="/">Home</a>
+  
     
     {% comment %}
       The code below dynamically generates a sidebar nav of pages with
@@ -27,6 +25,8 @@
         {% endif %}
       {% endif %}
     {% endfor %}
+    
+    <a class="sidebar-nav-item" href="https://github.com/jbeustice/mySite/Resume.md">Download_CV</a>
   </nav>
 
   <div class="sidebar-item">
