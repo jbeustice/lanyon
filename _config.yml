@@ -4,7 +4,7 @@
 permalink:           pretty
 
 # Dependencies
-markdown:         redcarpet
+markdown:         kramdown
 pygments:         true
 
 # Setup
