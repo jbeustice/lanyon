@@ -1,6 +1,6 @@
 ---
 layout: page
-title: IO
+title: Teaching
 ---
 
 ![all for one]({{ site.baseurl }}/assets/family.jpg)
