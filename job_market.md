@@ -15,11 +15,11 @@ title: Job Market Paper
 ## Supplemental Material
 
 {% highlight js %}
-## This program finds the duration, in seconds, to all reported I-90 
-## destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
+// This program finds the duration, in seconds, to all reported I-90 
+// destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
 
 setwd("C:/Users/jbradley.eustice/Dropbox/DATA_1_2")
-## setwd("/Users/Bradley/Dropbox/DATA_1_2")
+// setwd("/Users/Bradley/Dropbox/DATA_1_2")
 
 library(bitops)
 library(httr)
@@ -30,7 +30,7 @@ library(xlsxjars)
 library(xlsx)
 library(progress)
 
-# read in data
+// read in data
 input <- read.csv("inputRoutes.csv",header=F) # west, origin, destination, epochTime
 allData <- as.matrix(input)
 colnames(allData) <- NULL
@@ -41,7 +41,7 @@ stevPass <- "STEVENS+PASS+WA"
 drive <- c("pessimistic","best_guess","optimistic")
 key <- "AIzaSyDyfOxnwiFKSWSqNc9avgWMC04l_otTH0Y"
 
-# routes from Snoqualmie Pass over wavepoints to final destination
+// routes from Snoqualmie Pass over wavepoints to final destination
 f.wavepoint <- function(wavepointA,wavepointB,speed){
   results.A <- matrix(nrow=numRow,ncol=1)
   results.B <- matrix(nrow=numRow,ncol=1)
@@ -117,7 +117,7 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
   results.out
 }
 
-# routes from Snoqualmie Pass over wavepoints to final destination
+// routes from Snoqualmie Pass over wavepoints to final destination
 f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
   results.A <- matrix(nrow=numRow,ncol=1)
   results.B <- matrix(nrow=numRow,ncol=1)
