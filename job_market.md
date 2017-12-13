@@ -8,115 +8,237 @@ title: Job Market Paper
   The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up- dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end- points of travel.
 </div>
 
-Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. *Aenean eu leo quam.* Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.
 
 > The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up- dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end- points of travel.
 
-Etiam porta **sem malesuada magna** mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
 
-## Inline HTML elements
-
-HTML defines a long list of available inline tags, a complete list of which can be found on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/HTML/Element).
-
-- **To bold text**, use `<strong>`.
-- *To italicize text*, use `<em>`.
-- Abbreviations, like <abbr title="HyperText Markup Langage">HTML</abbr> should use `<abbr>`, with an optional `title` attribute for the full phrase.
-- Citations, like <cite>&mdash; Mark otto</cite>, should use `<cite>`.
-- <del>Deleted</del> text should use `<del>` and <ins>inserted</ins> text should use `<ins>`.
-- Superscript <sup>text</sup> uses `<sup>` and subscript <sub>text</sub> uses `<sub>`.
-
-Most of these elements are styled by browsers with few modifications on our part.
-
-## Heading
-
-Vivamus sagittis lacus vel augue rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-
-### Code
-
-Cum sociis natoque penatibus et magnis dis `code element` montes, nascetur ridiculus mus.
+## Supplemental Material
 
 {% highlight js %}
-// Example can be run directly in your JavaScript console
+## This program finds the duration, in seconds, to all reported I-90 
+## destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
 
-// Create a function that takes two arguments and returns the sum of those arguments
-var adder = new Function("a", "b", "return a + b");
+setwd("C:/Users/jbradley.eustice/Dropbox/DATA_1_2")
+## setwd("/Users/Bradley/Dropbox/DATA_1_2")
 
-// Call the function
-adder(2, 6);
-// > 8
+library(bitops)
+library(httr)
+library(XML)
+library(RCurl)
+library(rJava)
+library(xlsxjars)
+library(xlsx)
+library(progress)
+
+# read in data
+input <- read.csv("inputRoutes.csv",header=F) # west, origin, destination, epochTime
+allData <- as.matrix(input)
+colnames(allData) <- NULL
+numRow <- nrow(allData)
+penalty <- 10050
+snoqPass <- "SNOQUALMIE+PASS+WA"
+stevPass <- "STEVENS+PASS+WA"
+drive <- c("pessimistic","best_guess","optimistic")
+key <- "AIzaSyDyfOxnwiFKSWSqNc9avgWMC04l_otTH0Y"
+
+# routes from Snoqualmie Pass over wavepoints to final destination
+f.wavepoint <- function(wavepointA,wavepointB,speed){
+  results.A <- matrix(nrow=numRow,ncol=1)
+  results.B <- matrix(nrow=numRow,ncol=1)
+  results.C <- matrix(nrow=numRow,ncol=1)
+  results.out <- matrix(nrow=numRow,ncol=1)
+  pb <- progress_bar$new(total = numRow)
+  for(i in c(848)){
+    tempTime <- 0
+    
+    # routes from SP to first wavepoint
+    k <- 0
+    while(is.na(results.A[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',allData[i,4],
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',allData[i,4],
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    tempTime <- as.numeric(allData[i,4]) + results.A[i]
+    
+    # routes from first wavepoint to second wavepoint
+    k <- 0
+    while(is.na(results.B[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointA,'&destinations=',wavepointB,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointB,'&destinations=',wavepointA,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    tempTime <- tempTime + results.B[i]
+    
+    # routes from second wavepoint to final destination
+    k <- 0
+    while(is.na(results.C[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    
+    # output
+    results.out[i] <- (results.A[i] + results.B[i] + results.C[i])/60
+    pb$tick()
+  }
+  results.out
+}
+
+# routes from Snoqualmie Pass over wavepoints to final destination
+f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
+  results.A <- matrix(nrow=numRow,ncol=1)
+  results.B <- matrix(nrow=numRow,ncol=1)
+  results.C <- matrix(nrow=numRow,ncol=1)
+  results.D <- matrix(nrow=numRow,ncol=1)
+  results.out <- matrix(nrow=numRow,ncol=1)
+  pb <- progress_bar$new(total = numRow)
+  for(i in c()){
+    
+    # routes from SP to first wavepoint
+    k <- 0
+    while(is.na(results.A[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',allData[i,4],
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',allData[i,4],
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    tempTime <- as.numeric(allData[i,4]) + results.A[i]
+    
+    # routes from first wavepoint to Stevens Pass
+    k <- 0
+    while(is.na(results.B[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointA,'&destinations=',stevPass,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointB,'&destinations=',stevPass,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    tempTime <- tempTime + results.B[i] + penalty
+    
+    # routes from Stevens Pass to second wavepoint
+    k <- 0
+    while(is.na(results.C[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      stevPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      stevPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    tempTime <- tempTime + results.C[i]
+    
+    # routes from second wavepoint to final destination
+    k <- 0
+    while(is.na(results.D[i]) && k<10){
+      if(allData[i,1] == 1){
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      else{
+        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',tempTime,
+                      '&traffic_model=',speed,'&key=',key)
+      }
+      Sys.sleep(0.3)
+      tie <- xmlParse(GET(url))
+      tryCatch(results.D[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      k <- k+1
+    }
+    
+    results.out[i] <- (results.A[i] + results.B[i] + penalty + results.C[i] + results.D[i])/60
+    pb$tick()
+  }
+  results.out
+}
+
+
+for(j in 1:3){
+  route2 <- f.wavepoint("Leavenworth+WA","Sultan+WA",drive[j])
+  route2plus <- f.wavepointPLUS("Leavenworth+WA","Sultan+WA",drive[j])
+  route12 <- f.wavepoint("Gleed+WA","Fern+Gap+WA",drive[j])
+  route84 <- f.wavepoint("Goldendale+WA","Rooster+Rock+Park+OR",drive[j])
+  
+  altRoutes <- cbind(allData,route2,route2plus,route12,route84)
+  colnames(altRoutes) <- c("west","origin","destination","epochtime","route2","route2plus","route12","route84")
+  write.xlsx(altRoutes,file="altRoutes.xlsx",sheetName=drive[j],col.names=T,row.names=F,append=T)
+  
+  route2 <- NULL
+  route2plus <- NULL
+  route12 <- NULL
+  route84 <- NULL
+}
+
+
+for(i in c(848)){
+  route84[i] <- route84WHAT[i]
+}
+
+route2WHAT <- NULL
+route2plusWHAT <- NULL
+route12WHAT <- NULL
+route84WHAT <- NULL
 {% endhighlight %}
-
-Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.
-
-### Lists
-
-Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-
-* Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-* Donec id elit non mi porta gravida at eget metus.
-* Nulla vitae elit libero, a pharetra augue.
-
-Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.
-
-1. Vestibulum id ligula porta felis euismod semper.
-2. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-3. Maecenas sed diam eget risus varius blandit sit amet non magna.
-
-Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.
-
-<dl>
-  <dt>HyperText Markup Language (HTML)</dt>
-  <dd>The language used to describe and define the content of a Web page</dd>
-
-  <dt>Cascading Style Sheets (CSS)</dt>
-  <dd>Used to describe the appearance of Web content</dd>
-
-  <dt>JavaScript (JS)</dt>
-  <dd>The programming language used to build advanced Web sites and applications</dd>
-</dl>
-
-Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Nullam quis risus eget urna mollis ornare vel eu leo.
-
-### Tables
-
-Aenean lacinia bibendum nulla sed consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Upvotes</th>
-      <th>Downvotes</th>
-    </tr>
-  </thead>
-  <tfoot>
-    <tr>
-      <td>Totals</td>
-      <td>21</td>
-      <td>23</td>
-    </tr>
-  </tfoot>
-  <tbody>
-    <tr>
-      <td>Alice</td>
-      <td>10</td>
-      <td>11</td>
-    </tr>
-    <tr>
-      <td>Bob</td>
-      <td>4</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>Charlie</td>
-      <td>7</td>
-      <td>9</td>
-    </tr>
-  </tbody>
-</table>
-
-Nullam id dolor id nibh ultricies vehicula ut id elit. Sed posuere consectetur est at lobortis. Nullam quis risus eget urna mollis ornare vel eu leo.
 
 -----
 
-Want to see something else added? <a href="https://github.com/poole/poole/issues/new">Open an issue.</a>
