@@ -167,8 +167,7 @@ pre {
   padding: 1rem;
   font-size: .8rem;
   line-height: 1.2;
-  white-space: pre;
-  white-space: pre-wrap;
+  white-space: normal;
   overflow-x: scroll;
   background-color: #f9f9f9;
 }
