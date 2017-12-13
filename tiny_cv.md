@@ -4,7 +4,7 @@ title: My CV
 ---
 
 * PhD Candidate in [Economics](http://ses.wsu.edu) under [Dr. Jia Yan](https://people.ses.wsu.edu/yan/) at [Washington State University](https://wsu.edu)
-* Adjunct faculty [Economics] at [Brigham Young University](https://www.byu.edu)
+* Adjunct faculty at the [Department of Economics](http://ses.wsu.edu) of [Brigham Young University](https://www.byu.edu)
 * MS in [Statistics](http://www.math.wsu.edu) under [Dr. Krishna Jandhyala](http://www.math.wsu.edu/faculty/jand/welcome.php) from [Washinton State University](https://wsu.edu) in 2016
 * A short stint at US Airways (now [American Airlines](https://www.aa.com/)) as a Strategic Forecast Analyst in the Reveneue Mangement Department from 2011-2012
 * BA in [Economics](https://economics.byu.edu) with minors in [Mathematics](https://math.byu.edu) and [Business Management](https://marriottschool.byu.edu) from [Brigham Young University](https://www.byu.edu) in 2011
