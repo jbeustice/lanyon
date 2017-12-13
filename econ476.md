@@ -3,26 +3,26 @@ layout: page
 title: Teaching
 ---
 
-![all for one]({{ site.baseurl }}/assets/family.jpg)
+Syllabus for [Summer 2017]({{ site.baseurl }}/Econ476/Econ476_Summer2017_Syllabus.pdf) and [Fall 2017]({{ site.baseurl }}/Econ476/Econ476_Fall2017_Syllabus.pdf)
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+## Lecture Slides
 
-There are currently two themes built on Poole:
+* Lecture 1 [[Intro]({{ site.baseurl }}/Econ476/Lecture_01.pdf)]
+* Lecture 2 [[Monopoly]({{ site.baseurl }}/Econ476/Lecture_02.pdf)]
+* Lecture 3 [[Game theory - normal]({{ site.baseurl }}/Econ476/Lecture_03.pdf)]
+* Lecture 4 [[Oligopoly - simultaneous]({{ site.baseurl }}/Econ476/Lecture_04.pdf)]
+* Lecture 5 [[Game theory - extensive]({{ site.baseurl }}/Econ476/Lecture_05.pdf)]
+* Lecture 6 [[Oligopoly - sequential]({{ site.baseurl }}/Econ476/Lecture_06.pdf)]
+* Lecture 7 [[Antitrust]({{ site.baseurl }}/Econ476/Lecture_07.pdf)]
+* Lecture 8 [[Differentiated goods]({{ site.baseurl }}/Econ476/Lecture_08.pdf)]
+* Lecture 9 [[Mergers]({{ site.baseurl }}/Econ476/Lecture_09.pdf)]
+* Lecture 10 [[Quality]({{ site.baseurl }}/Econ476/Lecture_10.pdf)]
+* Lecture 11 [[R&D]({{ site.baseurl }}/Econ476/Lecture_11.pdf)]
+* Lecture 12 [[Entry deterrence]({{ site.baseurl }}/Econ476/Lecture_12.pdf)]
+* Lecture 13 [[Compensation]({{ site.baseurl }}/Econ476/Lecture_13.pdf)]
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+## Sample Materials
 
-Learn more and contribute on [GitHub](https://github.com/poole).
-
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!
+* Sample [homework]({{ site.baseurl }}/Econ476/sample_hw.pdf)
+* Sample [quiz]({{ site.baseurl }}/Econ476/sample_quiz.pdf)
+* Sample [exam]({{ site.baseurl }}/Econ476/sample_exam.pdf)
