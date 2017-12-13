@@ -153,12 +153,11 @@ pre {
   font-family: Menlo, Monaco, "Courier New", monospace;
 }
 code {
-  padding: -4em;
+  padding: .25em .5em;
   font-size: 85%;
   color: #bf616a;
   background-color: #f9f9f9;
   border-radius: 3px;
-  overflow-x: scroll;
 }
 pre {
   display: block;
@@ -168,15 +167,16 @@ pre {
   font-size: .8rem;
   line-height: 1.4;
   white-space: pre;
-  overflow-x: scroll;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
   background-color: #f9f9f9;
 }
 pre code {
   padding: 0;
-  font-size: 90%;
+  font-size: 100%;
   color: inherit;
   background-color: transparent;
-  overflow-x: scroll;
 }
 
 /* Pygments via Jekyll */
