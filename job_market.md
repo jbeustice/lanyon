@@ -14,6 +14,8 @@ title: Job Market Paper
 
 ## Supplemental Material
 
+Might be better to look [here]({{ site.baseurl }}/assets/RerouteAug2017Alt.R)
+
 {% highlight js %}
 // This program finds the duration, in seconds, to all reported I-90 
 // destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
