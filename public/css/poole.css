@@ -166,13 +166,11 @@ pre {
   padding: 0;
   font-size: .8rem;
   line-height: 1.4;
-  white-space: pre;
-  white-space: pre-wrap;
   background-color: #f9f9f9;
 }
 pre code {
   padding: 0;
-  font-size: 100%;
+  font-size: 80%;
   color: inherit;
   background-color: transparent;
 }
