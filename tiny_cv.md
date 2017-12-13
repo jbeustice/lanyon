@@ -3,9 +3,9 @@ layout: page
 title: My CV
 ---
 
-* BA in [Economics](https://economics.byu.edu) with minors in [Mathematics](https://math.byu.edu) and [Business Management](https://marriottschool.byu.edu) from [BYU](https://www.byu.edu) in 2011.
-* MS in [Statistics](http://www.math.wsu.edu) from [WSU](https://wsu.edu) in 2016.
-* PhD Candidate in [Economics](http://ses.wsu.edu) from [WSU](https://wsu.edu)
+* BA in [Economics](https://economics.byu.edu) with minors in [Mathematics](https://math.byu.edu) and [Business Management](https://marriottschool.byu.edu) from [Brigham Young University](https://www.byu.edu) in 2011
+* MS in [Statistics](http://www.math.wsu.edu) under [Dr. Krishna Jandhyala](http://www.math.wsu.edu/faculty/jand/welcome.php) from [Washinton State University](https://wsu.edu) in 2016
+* PhD Candidate in [Economics](http://ses.wsu.edu) under [Dr. Jia Yan](https://people.ses.wsu.edu/yan/) at [Washington State University](https://wsu.edu)
 
 Learn more and contribute on [GitHub](https://github.com/poole).
 
