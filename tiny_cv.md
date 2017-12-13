@@ -1,6 +1,6 @@
 ---
 layout: page
-title: CV
+title: My CV
 ---
 
 * BA in [Economics](https://economics.byu.edu) with minors in [Mathematics](https://math.byu.edu) and [Business Management](https://marriottschool.byu.edu) from [BYU](https://www.byu.edu) in 2011.
