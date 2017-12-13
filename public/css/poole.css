@@ -158,6 +158,7 @@ code {
   color: #bf616a;
   background-color: #f9f9f9;
   border-radius: 3px;
+  overflow-x: scroll;
 }
 pre {
   display: block;
@@ -165,7 +166,10 @@ pre {
   margin-bottom: 1rem;
   padding: 0;
   font-size: .8rem;
-  line-height: 1.4;
+  line-height: 1.2;
+  white-space: pre;
+  white-space: pre-wrap;
+  overflow-x: scroll;
   background-color: #f9f9f9;
 }
 pre code {
@@ -173,6 +177,7 @@ pre code {
   font-size: 80%;
   color: inherit;
   background-color: transparent;
+  overflow-x: scroll;
 }
 
 /* Pygments via Jekyll */
