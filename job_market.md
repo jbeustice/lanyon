@@ -31,7 +31,7 @@ library(xlsx)
 library(progress)
 
 // read in data
-input <- read.csv("inputRoutes.csv",header=F) # west, origin, destination, epochTime
+input <- read.csv("inputRoutes.csv",header=F) // west, origin, destination, epochTime
 allData <- as.matrix(input)
 colnames(allData) <- NULL
 numRow <- nrow(allData)
@@ -51,7 +51,7 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
   for(i in c(848)){
     tempTime <- 0
     
-    # routes from SP to first wavepoint
+    // routes from SP to first wavepoint
     k <- 0
     while(is.na(results.A[i]) && k<10){
       if(allData[i,1] == 1){
@@ -71,7 +71,7 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
     }
     tempTime <- as.numeric(allData[i,4]) + results.A[i]
     
-    # routes from first wavepoint to second wavepoint
+    // routes from first wavepoint to second wavepoint
     k <- 0
     while(is.na(results.B[i]) && k<10){
       if(allData[i,1] == 1){
@@ -91,7 +91,7 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
     }
     tempTime <- tempTime + results.B[i]
     
-    # routes from second wavepoint to final destination
+    // routes from second wavepoint to final destination
     k <- 0
     while(is.na(results.C[i]) && k<10){
       if(allData[i,1] == 1){
@@ -110,7 +110,7 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
       k <- k+1
     }
     
-    # output
+    // output
     results.out[i] <- (results.A[i] + results.B[i] + results.C[i])/60
     pb$tick()
   }
@@ -127,7 +127,7 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
   pb <- progress_bar$new(total = numRow)
   for(i in c()){
     
-    # routes from SP to first wavepoint
+    // routes from SP to first wavepoint
     k <- 0
     while(is.na(results.A[i]) && k<10){
       if(allData[i,1] == 1){
@@ -147,7 +147,7 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     }
     tempTime <- as.numeric(allData[i,4]) + results.A[i]
     
-    # routes from first wavepoint to Stevens Pass
+    // routes from first wavepoint to Stevens Pass
     k <- 0
     while(is.na(results.B[i]) && k<10){
       if(allData[i,1] == 1){
@@ -167,7 +167,7 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     }
     tempTime <- tempTime + results.B[i] + penalty
     
-    # routes from Stevens Pass to second wavepoint
+    // routes from Stevens Pass to second wavepoint
     k <- 0
     while(is.na(results.C[i]) && k<10){
       if(allData[i,1] == 1){
@@ -187,7 +187,7 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     }
     tempTime <- tempTime + results.C[i]
     
-    # routes from second wavepoint to final destination
+    // routes from second wavepoint to final destination
     k <- 0
     while(is.na(results.D[i]) && k<10){
       if(allData[i,1] == 1){
