@@ -94,7 +94,6 @@ for(i in 1:numRow){
 originalRoute <- cbind(allData,originSP,SPdest,SPhour)
 colnames(originalRoute) <- c("west","origin","destination","epochtime","orginSP","SPdest","SPhour")
 write.csv(originalRoute,file="originalRoute.csv")
-
 ```
 
 NOW IS THE ALT ROUTES
@@ -313,7 +312,6 @@ for(j in 1:3){
   route12 <- NULL
   route84 <- NULL
 }
-
 ```
 
 NOW WE HAVE THE CPT STUFF
@@ -360,8 +358,8 @@ f.probability <- function(p1,p2){
   output
 }
 
-prob2E <- f.probability(probGoogle,prob2passE) # longP, middleP, shortP, long, middle, short
-prob2W <- f.probability(probGoogle,prob2passW) # longP, middleP, shortP, long, middle, short
+prob2E <- f.probability(probGoogle,prob2passE)
+prob2W <- f.probability(probGoogle,prob2passW)
 prob12 <- probGoogle
 prob84 <- probGoogle
 
@@ -371,8 +369,8 @@ delta <- seq(0.4,1,0.1)
 combos <- length(beta)*length(lambda)*length(delta)
 combos
 
-# calculates whether or not RP was changed under a varieity of parameter values (via results of CPT)
-# reutrns number of times RP changed
+# calculates whether or not RP was changed under a varieity of parameter
+# values (via results of CPT) and reutrns number of times RP changed
 f.reference <- function(ref){
   num <- length(ref)
   output <- matrix(0,num,1)
@@ -540,6 +538,83 @@ for(i in 1:length(rp)){
   }
 }
 
+# plots changeRP vs any other variable (helps determine relationship)
+f.plot <- function(rp,blocks,top,aboveSum,interest){
+  bind <- cbind(rp,interest)
+  interval <- seq(0,top,top/blocks)
+  if(aboveSum == 1){
+    blockSum <- blocks+1
+    out <- array(dim=blockSum)
+    outLenght <- out
+    outMin <- out
+    outMax <- out
+    for(i in 1:blockSum){
+      if(i == blockSum){
+        temp1 <- subset(bind,bind[,2]>=interval[i])
+      }
+      else{
+        temp1 <- subset(bind,bind[,2]>=interval[i] & bind[,2]<interval[i+1])
+      }
+      temp2 <- subset(temp1,temp1[,1]==0)
+      out[i] <- length(temp2)/length(temp1)
+      outLenght[i] <- length(temp1)
+      outMin[i] <- round(interval[i],1)
+      if(i == blockSum){
+        outMax[i] <- round(max(interest),1)
+      }
+      else{
+        outMax[i] <- round(interval[i+1],1)
+      }
+    }
+  }
+  else{
+    out <- array(dim=blocks)
+    outLenght <- out
+    outMin <- out
+    outMax <- out
+    for(i in 1:blocks){
+      if(i == blocks){
+        temp1 <- subset(bind,bind[,2]>=interval[i])
+      }
+      else{
+        temp1 <- subset(bind,bind[,2]>=interval[i] & bind[,2]<interval[i+1])
+      }
+      temp2 <- subset(temp1,temp1[,1]==0)
+      out[i] <- length(temp2)/length(temp1)
+      outLenght[i] <- length(temp1)
+      outMin[i] <- round(interval[i],1)
+      outMax[i] <- round(interval[i+1],1)
+    }
+  }
+  cbind(out,outLenght,outMin,outMax)
+}
+
+# plots against a variety of variables
+hist(routeCompletion)
+x <- f.plot(rp,20,1,0,routeCompletion)
+x
+plot(x[,1],type="l")
+
+hist(routeDeviation)
+x <- f.plot(rp,20,2,1,routeDeviation)
+x
+plot(x[,1],type="l")
+
+hist(routeDeviationSP)
+x <- f.plot(rp,20,8,1,routeDeviationSP)
+x
+plot(x[,1],type="l")
+
+hist(routeDuration)
+x <- f.plot(rp,20,300,0,routeDuration)
+x
+plot(x[,1],type="l")
+
+hist(others[,13]) # incidentTime
+x <- f.plot(rp,24,24,0,others[,13])
+x
+plot(x[,1],type="l")
+
 # exports publication quality graph
 tikz(file = "originalRC.tex")
 graph <- ggplot(mapping=aes(x=routeCompletion,y=1-changeRP)) + stat_smooth(method=loess) + coord_fixed()
@@ -558,7 +633,6 @@ for(i in 1:nrow(bind)){
 bind
 mbind <- bind[-maxRP,]
 write.csv(bind,"resultsCPT.csv",row.names = FALSE)
-
 ```
 -----
 
