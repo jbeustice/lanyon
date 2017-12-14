@@ -540,8 +540,8 @@ for(i in 1:length(rp)){
 
 # exports publication quality graph
 tikz(file = "originalRC.tex")
-graph <- ggplot(mapping=aes(x=routeCompletion,y=1-changeRP)) +
-                stat_smooth(method=loess) + coord_fixed()
+graph <- ggplot(mapping=aes(x=routeCompletion,y=1-changeRP))
+         + stat_smooth(method=loess) + coord_fixed()
 graph + theme(axis.text = element_text(colour="black"), axis.ticks = element_blank())
       + xlab("Percent of route completed before unexpected closure")
       + ylab("Percent of drivers who change their RP")
