@@ -486,7 +486,7 @@ f.reference <- function(ref){
           cWeight84[2] <- f.cWeight(sum(prob84[1:2]),sum(prob84[1]))
           cWeight84[3] <- f.cWeight(sum(prob84[1:3]),sum(prob84[1:2]))
           for(p in 1:3){
-            temp84[p] <- (-lambda[i]*(eightfour[k,p] - ref[k])^beta[j]) *  cWeight84[p]
+            temp84[p] <- (-lambda[i]*(eightfour[k,p] - ref[k])^beta[j]) * cWeight84[p]
           }
           out84 <- sum(temp84)
 
