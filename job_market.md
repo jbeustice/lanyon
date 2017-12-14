@@ -3,19 +3,17 @@ layout: page
 title: Job Market Paper
 ---
 
+My job market paper is similar to [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
 
-<div class="message">
-  The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up- dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end- points of travel.
-</div>
-
+My job market paper looks at how/if reference points (from Cumulative Prospect Theory) are updated within periods, i.e., after an event takes place, but before the outcome is realized. Transportation data is perfect to answer this question. Drivers choose a route or leave for a destination, but don't fully realize the outcome untill final ariival at their respective destinations.
 
 > The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up- dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end- points of travel.
 
+Download a preview of my job market paper [here]().
 
 ## Supplemental Material
 
-Might be better to look [here]({{ site.baseurl }}/assets/RerouteAug2017Alt.R)
-
+The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination.
 ``` sh
 ## This program finds the duration, in minutes, and distance, in miles,
 ## to all reported I-90 destinations from Snoqualmie Pass given a
@@ -96,8 +94,7 @@ colnames(originalRoute) <- c("west","origin","destination","epochtime","orginSP"
 write.csv(originalRoute,file="originalRoute.csv")
 ```
 
-NOW IS THE ALT ROUTES
-
+The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination over the 3 potential reroute options. Values returned by the Google Maps API include 3 different durations: pessimistic guess, best guess, and optimistic guess. The Google Maps API is called over 10,000 times.
 ``` sh
 ## This program finds the duration, in minutes, to all reported I-90 
 ## destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
@@ -314,8 +311,7 @@ for(j in 1:3){
 }
 ```
 
-NOW WE HAVE THE CPT STUFF
-
+The following R code calculates the prospect maximizing route for 1600+ combinations of the CPT parameters in the loss domain using the preferred route as the reference point.
 ```sh
 ## This program calculates the prospect of each route from the SP reference point
 ## for multiple values of lambda, beta, and delta and returns which combinations
