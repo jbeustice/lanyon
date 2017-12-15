@@ -3,13 +3,13 @@ layout: page
 title: Job Market Paper
 ---
 
-My job market paper is similar to [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
+My family and freinds think my job market paper is something like [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
 
-My job market paper looks at how/if reference points (from Cumulative Prospect Theory) are updated within periods, i.e., after an event takes place, but before the outcome is realized. Transportation data is perfect to answer this question. Drivers choose a route or leave for a destination, but don't fully realize the outcome untill final ariival at their respective destinations.
+My job market paper *actually* looks at how/if reference points (from Cumulative Prospect Theory) are updated *within* periods, i.e., after an event takes place, but before the outcome is realized. Transportation data is perfect to answer this question. Drivers choose a route or leave for a destination, but don't fully realize the outcome untill final arrival at their respective destinations. The abstract for the paper is below:
 
-> The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up- dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end- points of travel.
+> The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to total assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up-dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end-points of travel.
 
-Download a preview of my job market paper [here]().
+**View** the first few pages of my job market paper [here]({{ site.baseurl }}/assets/jobMarketPreview.pdf).
 
 ## Supplemental Material
 
