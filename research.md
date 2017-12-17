@@ -3,7 +3,7 @@ layout: page
 title: Research
 ---
 
-My research can be broadly defined as touching economic questions as they relate to both time and space. For most of my graduate career, I have been funded by the [Freight Tansportation Research Institute](http://ses.wsu.edu/fpti/) within the School of Economic Sciences at WSU; hence, my research tends to touch on transportation related issues. I have also dabbled in the economics of housing markets.
+My research can be broadly defined as touching economic questions as they relate to both time and space. For most of my graduate career, I have been funded by the [Freight Transportation Research Institute](http://ses.wsu.edu/fpti/) within the School of Economic Sciences at WSU; hence, my research tends to touch on transportation related issues. I have also dabbled in the economics of housing markets.
 
 
 ## Dissertation
