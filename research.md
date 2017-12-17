@@ -3,25 +3,17 @@ layout: page
 title: Research
 ---
 
+My research can be broadly defined as touching economic questions as they relate to both time and space. For most of my graduate career, I have been funded by the [Freight Tansportation Research Institute](http://ses.wsu.edu/fpti/) within the School of Economic Sciences at WSU; hence, my research tends to touch on transportation related issues. I have also dabbled in the economics of housing markets.
 
-In the novel, *The Strange Case of Dr. Jeykll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
 
-There are currently two themes built on Poole:
+## Dissertation
+The title of my dissertation is *Topics in Spatial-Temporal Economics*. The papers that make up my dissertation are:
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+1. En Route Reference Point Updating: Estimating Travel Decisions in the Presence of Unexpected Delays
+2. A (Statistical) Moment in Time and Space: Detecting the Significance of Skewness on Route Choice
+3. A Conduit of Prices: The Effect of the Transportation Network on Price Dispersion using Modern Data
 
-Learn more and contribute on [GitHub](https://github.com/poole).
 
-## Setup
+## Other Research
 
 Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!
