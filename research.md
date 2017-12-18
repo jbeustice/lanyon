@@ -10,7 +10,7 @@ My research interests are in applied microeconomics, applied econometrics, and b
 ## Dissertation
 The title of my dissertation is *Topics in Spatial-Temporal Economics*. The papers that make up my dissertation are:
 
-1. En Route Reference Point Updating: Estimating Travel Decisions in the Presence of Unexpected Delays [Job market paper]
+1. En Route Reference Point Updating: Estimating Travel Decisions in the Presence of Unexpected Delays [job market paper]
 2. A (Statistical) Moment in Time and Space: Detecting the Significance of Skewness on Route Choice
 3. A Conduit of Prices: The Effect of the Transportation Network on Price Dispersion using Modern Data
 
