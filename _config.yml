@@ -10,7 +10,7 @@ markdown:         kramdown
 title:               J. Bradley Eustice
 tagline:             'Ph.D. Candidate [Economics], M.S. [Statistics]'
 description:         'A reserved <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that places the utmost gravity on content with a hidden drawer. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:                 jbeustice.github.io
+url:                 www.jbradleyeustice.com
 baseurl:             '/mySite'
 paginate:            10
 
@@ -22,5 +22,3 @@ author:
 
 github:
   repo:           https://github.com/jbeustice/mySite
-
-curriculum_vitae: https://github.com/jbeustice/jbeustice.github.io/mySite/blob/gh-pages/JBradleyEustice_CV.pdf
