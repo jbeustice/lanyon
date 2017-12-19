@@ -20,7 +20,7 @@ More information about my job market paper can be found [here]({{ site.baseurl }
 
 ## Other Research
 
-For the capstone project for the MS in Statistics, I looked at how price diffuses across significant geographic boundaries (i.e. mountains or the like) using [vector autoregressive models](https://en.wikipedia.org/wiki/Vector_autoregression). The abstract for this paper is below:
+To fulfill the capstone requirement for the MS in Statistics, I looked at how price diffuses across significant geographic boundaries (i.e. mountains or the like) using [vector autoregressive models](https://en.wikipedia.org/wiki/Vector_autoregression). The abstract for this paper is below:
 
 > While it has been shown that housing prices diffuse across arbitrary political boundaries, does price also diffuse across natural geographic barriers? This paper develops a vector autoregressive model for a sample data set of Washington housing prices from the 4th quarter of 2007 through the 4th quarter of 2015. Regions are constructed such that the boundaries between them are more substantive (i.e. mountains) than arbitrary political lines. Additional vector autoregressive models with the inclusion of exogenous variables are also estimated. In general, the results are consistent across the models. However, due to small sample size and p-values on the boundary, the null hypothesis is only weakly rejected. That is, housing prices in Western Washington weakly Granger-cause housing prices in Eastern Washington.
 
