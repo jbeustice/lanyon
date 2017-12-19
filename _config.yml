@@ -9,7 +9,7 @@ markdown:         kramdown
 # Setup
 title:               J. Bradley Eustice
 tagline:             'Ph.D. Candidate [Economics], M.S. [Statistics]'
-description:         'Ph.D. Candidate [Economics]<br>M.S. [Statistics]<br>Adjunct Lecturer [BYU]'
+description:         'Ph.D. Candidate [Economics]<br>M.S. [Statistics]<br>Adjunct Instructor [BYU]'
 url:                 http://jbradleyeustice.com
 baseurl:             '/'
 paginate:            10
