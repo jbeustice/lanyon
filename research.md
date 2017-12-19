@@ -16,7 +16,7 @@ The title of my dissertation is *Topics in Spatial-Temporal Economics*. The pape
 
 The first paper looks at reference-point updating (a feature of [Prospect Theory](https://en.wikipedia.org/wiki/Prospect_theory)) within periods. The second paper adds evidence to whether including the 3rd moment (i.e. skewness) is useful in predicting the preferred route. The last paper explores using spatial-weighting matrices based on the transportation network in spatial analysis.
 
-More information about my job market paper can be found [here]({{ site.baseurl }}/job_market)
+More information about my job market paper can be found [here]({{ site.baseurl }}/job_market).
 
 ## Other Research
 
