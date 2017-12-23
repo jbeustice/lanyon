@@ -39,7 +39,3 @@ I am currently an adjunct instructor at the [Department of Economics](http://ses
 * "The homework assignments were very difficult, I'll admit it, but they helped me understand the material thoroughly and I really appreciate them now."
 * "Kind of rekindled a fire for economics which had been lost in past semesters."
 * "It was very good, especially for his first time teaching. The course was very well organized and his lectures were very well prepared. The homework was excellent preparation for the quizzes and tests. Very well done."
-
-<div class="message">
-* Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
-</div>
