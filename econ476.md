@@ -32,10 +32,14 @@ I am currently an adjunct instructor at the [Department of Economics](http://ses
 * Average: 4.2/5
 * Econ Department average: 4.1/5
 
-### Selected Comments
+#### Selected Comments
 
 * "Professor Eustice taught the course with structure, but he also allowed the students to vote on what would be taught for the last topic. I found this helpful because I was able to learn an economic model for something I have thinking a lot about."
 * "Willing to teach to the student, in contrast to some professors who assume everyone is on the same page. He saw that the first quiz destroyed the entire class and was willing to go over it with the class and adapted the future test material to better match class and homework material."
 * "The homework assignments were very difficult, I'll admit it, but they helped me understand the material thoroughly and I really appreciate them now."
 * "Kind of rekindled a fire for economics which had been lost in past semesters."
 * "It was very good, especially for his first time teaching. The course was very well organized and his lectures were very well prepared. The homework was excellent preparation for the quizzes and tests. Very well done."
+
+<div class="message">
+  Howdy! This is an example blog post that shows several types of HTML content supported in this theme.
+</div>
