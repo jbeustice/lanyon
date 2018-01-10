@@ -11,7 +11,6 @@ My job market paper *actually* looks at how/if reference points (from Cumulative
 
 You may view the first few pages of my job market paper [here]({{ site.baseurl }}/assets/jobMarketPreview.pdf).
 
------
 ## Supplemental Material
 
 You can fork my code on [GitHub](https://github.com/jbeustice/job-market-paper) or view below.
