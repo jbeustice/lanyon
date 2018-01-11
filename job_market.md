@@ -9,8 +9,7 @@ My job market paper *actually* looks at how/if reference points (from Cumulative
 
 > The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to total assets. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been made concerning reference point up-dating between repeated choices, few papers have looked at reference point updating within periods. This paper seeks to find if and when drivers change their reference point in a transportation setting when faced with an unexpected delay en route. Drivers are more likely to change their reference point if the unexpected delay occurs near the end-points of travel.
 
-* View the first few pages of the paper [here]({{ site.baseurl }}/assets/jobMarketPreview.pdf)
-* Email for the full copy of the paper [here](mailto:jbradley.eustice@wsu.edu)
+You may view the first few pages of my job market paper [here]({{ site.baseurl }}/assets/jobMarketPreview.pdf). If you would like the full copy, you may email me [here](mailto:jbradley.eustice@wsu.edu).
 
 ## Supplemental Material
 
