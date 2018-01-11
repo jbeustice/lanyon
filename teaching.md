@@ -29,8 +29,12 @@ I am currently an adjunct instructor at the [Department of Economics](http://ses
 
 ## Student Ratings
 
-* Average: 4.2/5
-* Econ Department average: 4.1/5
+* Summer 2017
+  * Average: 4.2/5
+  * Econ Department average: 4.1/5
+* Fall 2017
+  * Average: 4.5/5
+  * Econ Department average: 4.3/5
 
 #### Selected Comments
 
