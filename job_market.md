@@ -15,7 +15,6 @@ You may view the first few pages of my job market paper [here]({{ site.baseurl }
 
 You can fork my code on [GitHub](https://github.com/jbeustice/job-market-paper) or view below.
 
------
 The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination.
 ``` sh
 ## This program finds the duration, in minutes, and distance, in miles,
