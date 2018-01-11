@@ -15,6 +15,7 @@ You may view the first few pages of my job market paper [here]({{ site.baseurl }
 
 You can fork my code on [GitHub](https://github.com/jbeustice/job-market-paper) or view below.
 
+-----
 The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination.
 ``` sh
 ## This program finds the duration, in minutes, and distance, in miles,
@@ -95,7 +96,7 @@ originalRoute <- cbind(allData,originSP,SPdest,SPhour)
 colnames(originalRoute) <- c("west","origin","destination","epochtime","orginSP","SPdest","SPhour")
 write.csv(originalRoute,file="originalRoute.csv")
 ```
-
+-----
 The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination over the 3 potential reroute options. Values returned by the Google Maps API include 3 different durations: pessimistic guess, best guess, and optimistic guess. The Google Maps API is called over 10,000 times.
 ``` sh
 ## This program finds the duration, in minutes, to all reported I-90 
@@ -312,7 +313,7 @@ for(j in 1:3){
   route84 <- NULL
 }
 ```
-
+-----
 The following R code calculates the prospect maximizing route for 1600+ combinations of the CPT parameters in the loss domain using the preferred route as the reference point.
 ```sh
 ## This program calculates the prospect of each route from the SP reference point
@@ -557,5 +558,4 @@ bind
 mbind <- bind[-maxRP,]
 write.csv(bind,"resultsCPT.csv",row.names = FALSE)
 ```
------
 
