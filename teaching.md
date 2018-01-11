@@ -43,3 +43,4 @@ I am currently an adjunct instructor at the [Department of Economics](http://ses
 * "The homework assignments were very difficult, I'll admit it, but they helped me understand the material thoroughly and I really appreciate them now."
 * "Kind of rekindled a fire for economics which had been lost in past semesters."
 * "It was very good, especially for his first time teaching. The course was very well organized and his lectures were very well prepared. The homework was excellent preparation for the quizzes and tests. Very well done."
+* "Great teacher! He taught very simply and clearly. Class time was always worth my time and I learned a lot."
