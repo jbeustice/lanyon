@@ -1,3 +1,8 @@
+---
+layout: page
+title: Coding
+---
+
 I am currently learning Python.
 
 ## Projects
