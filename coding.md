@@ -3,7 +3,7 @@ layout: page
 title: Coding
 ---
 
-My program of choice for analysis and scripting is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.).
+My language of choice for scripting and analysis is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.).
 
 Currently, I am familiarizing myself with Python.
 
