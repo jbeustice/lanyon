@@ -3,7 +3,7 @@ layout: page
 title: Coding
 ---
 
-My language of choice for scripting and analysis is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.).
+My language of choice for scripting and analysis is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.). Two of my favorite, yet somewhat tangential R packages are [progress](https://cran.r-project.org/web/packages/progress/index.html) and [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice/index.html). The first package denotes a progress bar (so helpful in large loops). The second outputs R figures to \\(\rm\LaTeX\\).
 
 Currently, I am familiarizing myself with Python.
 
@@ -112,4 +112,91 @@ save "/Users/Bradley/Dropbox/..."
 
 // create contiguity matrix
 spmatrix create contiguity W if year == 2007
+```
+
+The following R code fits data to a lognormal distribution and then samples from the fitted distribution to find the first three moments (and the median).
+
+``` sh
+## This program fits a log-normal distribution to sample data based on outcomes 
+## and quantiles. Simulates two-state models through 10,000 samples. Computes
+## the mean, median, variance, and skewness.
+
+setwd("/Users/Bradley/Dropbox/...")
+
+library(progress)
+library(rriskDistributions)
+library(moments)
+
+sampleData <- read.csv("meanVarData.csv",header=TRUE)
+closure <- c(.2556,1-.2556) # closed, open
+quantilesNear <- c(0.2,0.5,0.8)
+obs <- nrow(sampleData)
+
+# fits 3 quantiles to log-normal distribution
+fitLog <- function(info,numObs,quant,tolerance){
+  output <- matrix(NA,numObs,2)
+  for(i in 1:numObs){
+    temp <- get.lnorm.par(p=quant,q=c(info[i,1],info[i,2],info[i,3]),show.output=F,plot=F,tol=tolerance)
+    output[i,1] <- temp[[1]]
+    if(is.na(output[i,1])){
+      output[i,2] <- NA
+    }
+    else{
+      output[i,2] <- temp[[2]]
+    }
+  }
+  output
+}
+
+# returns which observations could not be fit to a log-normal distribution
+# i.e. does not meet tolerance level
+meetTol <- function(params){
+  output <- c()
+  for(i in 1:obs){
+    if(is.na(params[i])){
+      output <- c(output,i)
+    }
+  }
+  output
+}
+
+log1 <- fitLog(two[,2:4],obs,quantilesNear,0.01)
+log2 <- fitLog(two[,5:7],obs,quantilesNear,0.01)
+
+meetTol(log1)
+meetTol(log2)
+
+# drop the invalid observations for the whole dataset
+drop <- c(meetTol(log1),meetTol(log2))
+log1Drop <- log1[-drop,]
+log2Drop <- log2[-drop,]
+sampleDataDrop <- sampleData[-drop,]
+obs <- nrow(routes)
+
+# simulates log-normal samples for a two-state model and outputs the first 3 moments and the median
+sampleDistPass <- function(logDroppedOpen,logDroppedClosed,size){
+  output <- matrix(NA,obs,4)
+  pb <- progress_bar$new(total = obs)
+  for(i in 1:obs){
+    hold <- vector(mode="numeric",length=size)
+    for(j in 1:size){
+      rv <- runif(1,0,1)
+      if(rv<closure[2]){
+        hold[j] <- rlnorm(1,logDroppedOpen[i,1],logDroppedOpen[i,2])
+      }
+      else{
+        hold[j] <- rlnorm(1,logDroppedClosed[i,1],logDroppedClosed[i,2])
+      }
+    }
+    output[i,1] <- mean(hold)
+    output[i,2] <- median(hold)
+    output[i,3] <- var(hold)
+    output[i,4] <- skewness(hold)
+  
+    pb$tick()
+  }
+  output
+}
+
+results <- sampleDistPass(log1Drop,log2Drop,10000)
 ```
