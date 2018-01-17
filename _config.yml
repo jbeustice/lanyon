@@ -11,7 +11,7 @@ title:               J. Bradley Eustice
 tagline:             'Ph.D. Candidate [Economics], M.S. [Statistics]'
 description:         'Ph.D. Candidate [Economics]<br>M.S. [Statistics]<br>Adjunct Instructor [BYU]'
 url:                 http://jbradleyeustice.com
-baseurl:             ''
+baseurl:             '/'
 paginate:            10
 
 # Google Analytics
