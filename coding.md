@@ -3,7 +3,7 @@ layout: page
 title: Coding
 ---
 
-My language of choice for scripting and analysis is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.). Two of my favorite, yet somewhat tangential R packages are [progress](https://cran.r-project.org/web/packages/progress/index.html) and [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice/index.html)
+My language of choice for scripting and analysis is R; however, I have used and am familiar with many other statistical/scripting languages/programs (i.e. Stata, SAS, etc.). Two of my favorite, yet somewhat tangential R packages are [progress](https://cran.r-project.org/web/packages/progress/index.html) and [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice/index.html).
 
 Currently, I am familiarizing myself with Python.
 
