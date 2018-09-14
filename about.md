@@ -5,7 +5,7 @@ title: About
 
 ![all for one]({{ site.baseurl }}/assets/family.jpg)
 
-Here we are. That's me, my wife Alyssa, and our two kids, Thomas and Jacob. We are excited to be finishing up here at Washington State University and heading out on a new adventure. I am currently a PhD Candidate and a graduate research assistant [both in Economics] at Washington State University. I am an economist with extensive training in economics and statistics, including the 'necessary and sufficient' skills in computer science to solve complex problems. My research interests are in applied microeconomics, applied econometrics, and behavioral economics.
+Here we are. That's me, my wife Alyssa, and our two kids, Thomas and Jacob. We are excited to be finishing up here at Washington State University and heading out on a new adventure. I am currently a PhD Candidate [Economics] and a graduate research assistant at Washington State University. I am an economist with extensive training in economics and statistics, including the 'necessary and sufficient' skills in computer science to solve complex problems. My research interests are in applied microeconomics, applied econometrics, and behavioral economics.
 
 ## A little background
 
