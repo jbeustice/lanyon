@@ -7,6 +7,10 @@ My research can be broadly defined as touching economic questions as they relate
 
 My research interests are in applied microeconomics, applied econometrics, and behavioral economics.
 
+#### Research Statement
+
+My statement on research can be found [here]({{ site.baseurl }}/assets/research_statement.pdf).
+
 ## Dissertation
 The title of my dissertation is *Topics in Spatial-Temporal Economics*. The papers that make up my dissertation are:
 
