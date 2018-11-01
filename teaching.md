@@ -7,7 +7,7 @@ Last year I was an adjunct instructor in the [Department of Economics](http://se
 
 #### Teaching Statement
 
-My teaching statement can be found [here]({{ site.baseurl }}/assets/teaching_statement.pdf).
+My statement on teaching can be found [here]({{ site.baseurl }}/assets/teaching_statement.pdf).
 
 ## Lecture Slides
 
