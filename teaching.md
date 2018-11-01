@@ -3,7 +3,11 @@ layout: page
 title: Teaching
 ---
 
-Last year I was an adjunct instructor in the [Department of Economics](http://ses.wsu.edu) at [Brigham Young University](https://www.byu.edu) teaching an upper division economics course - [Industrial Organization](https://catalog.byu.edu/family-home-and-social-sciences/economics/industrial-organization). The syllabus for Summer 2017 and Fall 2017 can be found [here]({{ site.baseurl }}/Econ476/Econ476_Summer2017_Syllabus.pdf) and [here]({{ site.baseurl }}/Econ476/Econ476_Fall2017_Syllabus.pdf), respectively. All materials are typeset in \\(\rm\LaTeX\\).
+Last year I was an adjunct instructor in the [Department of Economics](http://ses.wsu.edu) at [Brigham Young University](https://www.byu.edu) teaching an upper division economics course - [Industrial Organization](https://catalog.byu.edu/family-home-and-social-sciences/economics/industrial-organization). The syllabus for Summer 2017 and Fall 2017 can be found [here]({{ site.baseurl }}/Econ476/Econ476_Summer2017_Syllabus.pdf) and [here]({{ site.baseurl }}/Econ476/Econ476_Fall2017_Syllabus.pdf), respectively. This coming spring, I will again teach IO; this time at [Washington State University](https://www.wsu.edu). All materials are typeset in \\(\rm\LaTeX\\).
+
+### Teaching Statement
+
+My teaching statement can be found [here]({{ site.baseurl }}/assets/teaching_statement.pdf).
 
 ## Lecture Slides
 
