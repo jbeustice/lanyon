@@ -3,7 +3,7 @@ layout: page
 title: Job Market Paper
 ---
 
-My family and freinds think my job market paper is something like [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
+My family and friends think my job market paper is something like [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
 
 My job market paper *actually* looks at how/if reference points (from Cumulative Prospect Theory) are updated *within* periods, i.e., after an event takes place, but before the outcome is realized. Transportation data is perfect to answer this question. Drivers choose a route or leave for a destination, but don't fully realize the outcome until final arrival at their respective destinations. The abstract for the paper is below:
 
