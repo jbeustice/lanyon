@@ -17,58 +17,103 @@ The following projects can be found on my GitHub [account](https://github.com/jb
 
 #### Spark (Scala)
 * Linear regression using housing data (from Zillow)
-* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle)
+* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle) ... also can viewed below.
 * Kmeans clustering using housing data (from Zillow)
 * Priciple Components Analysis using FIFA 2019 player data (from Kaggle)
 
 ## Code snippets
 
-The following R code reshapes and merges multiple files into one longitudinal dataset.
+The following Spark (Scala) code reshapes and merges multiple files into one longitudinal dataset.
 ``` sh
-## This script reads in multiple files, reshapes the data in
-## panel format, and merges all data into one dataset for
-## further analysis
+/**
+ * Logistic regression with k-fold cross-validation using Spark (Scala)
+ */
 
-setwd("/Users/Bradley/Dropbox/...")
+import org.apache.spark.sql.SparkSession
 
-library(reshape2)
+// see less warnings
+import org.apache.log4j._
+Logger.getLogger("org").setLevel(Level.ERROR)
 
-# load variables
-hp <- read.csv("MedianPricesA.csv")
-cpi <- read.csv("CPI_A.csv")
-fips <- read.csv("fips.csv")
-hi <- read.csv("HouseholdIncomeA.csv")
-hu <- read.csv("HousingUnitsA.csv")
-popD <- read.csv("PopulationDensityA.csv")
-unemp <- read.csv("unemploymentA.csv")
+// start Session
+val spark = SparkSession.builder().getOrCreate()
 
-# reshape data to panel format
-hp <- melt(hp,id.vars="COUNTY")
-hp <- hp[order(hp$COUNTY),]
-colnames(hp) <- c("COUNTY","YEAR","PRICE")
-hi <- melt(hi,id.vars="COUNTY")
-hi <- hi[order(hi$COUNTY),]
-colnames(hi) <- c("COUNTY","YEAR","INCOME")
-hu <- melt(hu,id.vars="COUNTY")
-hu <- hu[order(hu$COUNTY),]
-colnames(hu) <- c("COUNTY","YEAR","UNITS")
-popD <- melt(popD,id.vars="COUNTY")
-popD <- popD[order(popD$COUNTY),]
-colnames(popD) <- c("COUNTY","YEAR","POP_DENS")
-unemp <- melt(unemp,id.vars="COUNTY")
-unemp <- unemp[order(unemp$COUNTY),]
-colnames(unemp) <- c("COUNTY","YEAR","UNEMPLOYMENT")
+// load West Nile data
+val wn_data = (spark.read.option("header","true")
+                       .option("inferSchema","true")
+                       .csv("westnile_data.csv"))
 
-# merge data
-agg <- merge(hp,cpi,by="YEAR")
-agg <- merge(agg,fips,by="COUNTY")
-agg <- merge(agg,hi,by=c("COUNTY","YEAR"))
-agg <- merge(agg,hu,by=c("COUNTY","YEAR"))
-agg <- merge(agg,popD,by=c("COUNTY","YEAR"))
-agg <- merge(agg,unemp,by=c("COUNTY","YEAR"))
+// see data
+wn_data.printSchema()
+wn_data.head(1)
 
-# export
-write.csv(agg,"dataA.csv",row.names=F)
+// create categorical variables
+import org.apache.spark.ml.feature.{StringIndexer,OneHotEncoderEstimator}
+
+val transform_data = (new StringIndexer()
+                    .setInputCol("RESULT")
+                    .setOutputCol("resultIndex")
+                    .fit(wn_data)
+                    .transform(wn_data))
+
+val ready_dataAll = transform_data.select(transform_data("resultIndex").as("label"),
+                                      $"TRAP_TYPE",$"SPECIES",$"WEEK",$"NUMBER OF MOSQUITOES")
+
+val ready_data = ready_dataAll.na.drop()
+
+val trapIndexer = new StringIndexer().setInputCol("TRAP_TYPE").setOutputCol("traptypeIndex")
+val speciesIndexer = new StringIndexer().setInputCol("SPECIES").setOutputCol("speciesIndex")
+
+val encoder = (new OneHotEncoderEstimator()
+              .setInputCols(Array("traptypeIndex","speciesIndex"))
+              .setOutputCols(Array("traptypeVec","speciesVec")))
+
+// joins multiple feature columns into a single column of an array of feature values
+// (label,features)
+import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.ml.linalg.Vectors
+
+// dependent var must be titled as "label"; the independent vars as "features"
+val assemble = (new VectorAssembler()
+               .setInputCols(Array("traptypeIndex","speciesIndex","NUMBER OF MOSQUITOES"))
+               .setOutputCol("features"))
+
+// split data
+val Array(training, test) = ready_data.randomSplit(Array(0.75, 0.25))
+
+// run k-fold cv for logistic regression
+import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
+import org.apache.spark.ml.classification.LogisticRegression
+import org.apache.spark.ml.tuning.{ParamGridBuilder, CrossValidator}
+import org.apache.spark.ml.Pipeline
+
+val lr = new LogisticRegression().setMaxIter(10)
+
+val paramGrid = new ParamGridBuilder().addGrid(lr.regParam, Array(0.1, 0.01)).build()
+
+// cv requires an Estimator, a set of Estimator ParamMaps, and an Evaluator
+// 5-fold cv
+val cv = (new CrossValidator()
+         .setEstimator(lr)
+         .setEvaluator(new BinaryClassificationEvaluator)
+         .setEstimatorParamMaps(paramGrid)
+         .setNumFolds(5))
+
+val pipeline = new Pipeline().setStages(Array(trapIndexer,speciesIndexer,encoder,assemble,cv))
+
+// run cv and choose the best set of parameters.
+val cvModel = pipeline.fit(training)
+
+// evaluation --> need to convert to RDD (from df)
+import org.apache.spark.mllib.evaluation.MulticlassMetrics
+
+val predictionAndLabels = cvModel.transform(test).select($"prediction",$"label").as[(Double, Double)].rdd
+
+val outcome = new MulticlassMetrics(predictionAndLabels)
+
+// confusion matrix
+println("Confusion matrix:")
+println(outcome.confusionMatrix)
 ```
 
 The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
@@ -116,91 +161,4 @@ save "/Users/Bradley/Dropbox/..."
 
 // create contiguity matrix
 spmatrix create contiguity W if year == 2007
-```
-
-The following R code fits data to a lognormal distribution and then samples from the fitted distribution to find the first three moments (and the median).
-
-``` sh
-## This program fits a log-normal distribution to sample data based on outcomes 
-## and quantiles. Simulates two-state models through 10,000 samples. Computes
-## the mean, median, variance, and skewness.
-
-setwd("/Users/Bradley/Dropbox/...")
-
-library(progress)
-library(rriskDistributions)
-library(moments)
-
-sampleData <- read.csv("meanVarData.csv",header=TRUE)
-closure <- c(.2556,1-.2556) # closed, open
-quantilesNear <- c(0.2,0.5,0.8)
-obs <- nrow(sampleData)
-
-# fits 3 quantiles to log-normal distribution
-fitLog <- function(info,numObs,quant,tolerance){
-  output <- matrix(NA,numObs,2)
-  for(i in 1:numObs){
-    temp <- get.lnorm.par(p=quant,q=c(info[i,1],info[i,2],info[i,3]),show.output=F,plot=F,tol=tolerance)
-    output[i,1] <- temp[[1]]
-    if(is.na(output[i,1])){
-      output[i,2] <- NA
-    }
-    else{
-      output[i,2] <- temp[[2]]
-    }
-  }
-  output
-}
-
-# returns which observations could not be fit to a log-normal distribution
-# i.e. does not meet tolerance level
-meetTol <- function(params){
-  output <- c()
-  for(i in 1:obs){
-    if(is.na(params[i])){
-      output <- c(output,i)
-    }
-  }
-  output
-}
-
-log1 <- fitLog(two[,2:4],obs,quantilesNear,0.01)
-log2 <- fitLog(two[,5:7],obs,quantilesNear,0.01)
-
-meetTol(log1)
-meetTol(log2)
-
-# drop the invalid observations for the whole dataset
-drop <- c(meetTol(log1),meetTol(log2))
-log1Drop <- log1[-drop,]
-log2Drop <- log2[-drop,]
-sampleDataDrop <- sampleData[-drop,]
-obs <- nrow(routes)
-
-# simulates log-normal samples for a two-state model and outputs the first 3 moments and the median
-sampleDistPass <- function(logDroppedOpen,logDroppedClosed,size){
-  output <- matrix(NA,obs,4)
-  pb <- progress_bar$new(total = obs)
-  for(i in 1:obs){
-    hold <- vector(mode="numeric",length=size)
-    for(j in 1:size){
-      rv <- runif(1,0,1)
-      if(rv<closure[2]){
-        hold[j] <- rlnorm(1,logDroppedOpen[i,1],logDroppedOpen[i,2])
-      }
-      else{
-        hold[j] <- rlnorm(1,logDroppedClosed[i,1],logDroppedClosed[i,2])
-      }
-    }
-    output[i,1] <- mean(hold)
-    output[i,2] <- median(hold)
-    output[i,3] <- var(hold)
-    output[i,4] <- skewness(hold)
-  
-    pb$tick()
-  }
-  output
-}
-
-results <- sampleDistPass(log1Drop,log2Drop,10000)
 ```
