@@ -3,315 +3,197 @@ layout: page
 title: Machine Learning
 ---
 
-My family and friends think my job market paper is something like [this](https://www.youtube.com/watch?v=QR10t-B9nYY).
+My language of choice for supervised and unsupervised learning is R; however, I run models in Spark (using Scala) for larger projects. Currently, I am familiarizing myself with machine learning in Python.
 
-My job market paper *actually* looks at how/if reference points (from Cumulative Prospect Theory) are updated *within* periods, i.e., after an event takes place, but before the outcome is realized. Transportation data is perfect to answer this question. Drivers choose a route or leave for a destination, but don't fully realize the outcome until final arrival at their respective destinations. The abstract for the paper is below:
+## Projects
 
-> The defining feature separating (cumulative) prospect theory from expected utility theory is that potential outcomes are measured relative to a reference point as opposed to final asset allocation. Determining the reference point, therefore, is vital to correct analysis. While many theories and assumptions have been proposed concerning reference point updating between repeated choices, few researchers have explored reference point updating within periods. This paper seeks to find if and when drivers change their refer- ence point in a transportation setting when faced with an unexpected delay en route. A novel, yet conservative, approach is proposed to estimate reference point adaption amid data uncertainty. Using this new estimation technique, it is found that drivers are more likely to change their reference point if the unexpected delay occurs near the endpoints of travel.
+The following projects can be found on my GitHub [account](https://github.com/jbeustice/pastCode).
 
-You may view the first few pages of my job market paper [here]({{ site.baseurl }}/assets/jobMarketPreview.pdf). If you would like the full copy, you may email me [here](mailto:jbradleyeustice@gmail.com).
+* Linear regression using Zillow housing data [using Scala and Spark]
+* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle) [using Scala and Spark]
+* Kmeans clustering using Zillow housing data [using Scala and Spark]
+* Priciple Components Analysis using FIFA 2019 player data (Kaggle) [using Scala and Spark]
 
-## Supplemental Material
+## Code snippets
 
-You can fork my code on [GitHub](https://github.com/jbeustice/job-market-paper) or view below.
-
-The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination.
+The following R code reshapes and merges multiple files into one longitudinal dataset.
 ``` sh
-## This program finds the duration, in minutes, and distance, in miles,
-## to all reported I-90 destinations from Snoqualmie Pass given a
-## departure time via the Google Maps Distance Matrix API
+## This script reads in multiple files, reshapes the data in
+## panel format, and merges all data into one dataset for
+## further analysis
 
 setwd("/Users/Bradley/Dropbox/...")
 
-library(bitops)
-library(httr)
-library(XML)
-library(RCurl)
-library(rJava)
-library(xlsxjars)
-library(xlsx)
-library(progress)
+library(reshape2)
 
-# read in data
-input <- read.csv("inputRoutes.csv",header=F)
-allData <- as.matrix(input)
-colnames(allData) <- NULL
-numRow <- nrow(allData)
-snoqPass <- "Snoqualmie+Pass+WA"
-drive <- "best_guess"
-key <- "sign_up_for_a_key"
+# load variables
+hp <- read.csv("MedianPricesA.csv")
+cpi <- read.csv("CPI_A.csv")
+fips <- read.csv("fips.csv")
+hi <- read.csv("HouseholdIncomeA.csv")
+hu <- read.csv("HousingUnitsA.csv")
+popD <- read.csv("PopulationDensityA.csv")
+unemp <- read.csv("unemploymentA.csv")
 
-# takes the prepared city+state data and returns duration from origin to SP
-originSP <- matrix(nrow=numRow,ncol=1)
-pb <- progress_bar$new(total = numRow)
-for(i in 1:numRow){
-  k <- 0
-  while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',allData[i,2],
-                  '&destinations=',snoqPass,'&units=imperial')
-    Sys.sleep(1)
-    tie <- xmlParse(GET(url))
-    tryCatch(originSP[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60, error=function(e) NULL)
-    k <- k+1
-  }
-  pb$tick()
-}
+# reshape data to panel format
+hp <- melt(hp,id.vars="COUNTY")
+hp <- hp[order(hp$COUNTY),]
+colnames(hp) <- c("COUNTY","YEAR","PRICE")
+hi <- melt(hi,id.vars="COUNTY")
+hi <- hi[order(hi$COUNTY),]
+colnames(hi) <- c("COUNTY","YEAR","INCOME")
+hu <- melt(hu,id.vars="COUNTY")
+hu <- hu[order(hu$COUNTY),]
+colnames(hu) <- c("COUNTY","YEAR","UNITS")
+popD <- melt(popD,id.vars="COUNTY")
+popD <- popD[order(popD$COUNTY),]
+colnames(popD) <- c("COUNTY","YEAR","POP_DENS")
+unemp <- melt(unemp,id.vars="COUNTY")
+unemp <- unemp[order(unemp$COUNTY),]
+colnames(unemp) <- c("COUNTY","YEAR","UNEMPLOYMENT")
 
-# takes the prepared city+state data and returns duration from SP to destination
-SPdest <- matrix(nrow=numRow,ncol=1)
-pb <- progress_bar$new(total = numRow)
-for(i in 1:numRow){
-  k <- 0
-  while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',snoqPass,
-                  '&destinations=',allData[i,3],'&units=imperial')
-    Sys.sleep(1)
-    tie <- xmlParse(GET(url))
-    tryCatch(SPdest[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60, error=function(e) NULL)
-    k <- k+1
-  }
-  pb$tick()
-}
+# merge data
+agg <- merge(hp,cpi,by="YEAR")
+agg <- merge(agg,fips,by="COUNTY")
+agg <- merge(agg,hi,by=c("COUNTY","YEAR"))
+agg <- merge(agg,hu,by=c("COUNTY","YEAR"))
+agg <- merge(agg,popD,by=c("COUNTY","YEAR"))
+agg <- merge(agg,unemp,by=c("COUNTY","YEAR"))
 
-# takes the prepared city+state data and returns duration from Snoqualmie Pass given departure time
-SPhour <- matrix(nrow=numRow,ncol=1)
-pb <- progress_bar$new(total = numRow)
-for(i in 1:numRow){
-  k <- 0
-  while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',snoqPass,
-                  '&destinations=',allData[i,3],'&units=imperial&departure_time=',allData[i,4],
-                  '&traffic_model=',drive,'&key=',key)
-    Sys.sleep(1)
-    tie <- xmlParse(GET(url))
-    tryCatch(SPhour[i,1] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue))/60, error=function(e) NULL)
-    k <- k+1
-  }
-  pb$tick()
-}
-
-# export to csv file
-originalRoute <- cbind(allData,originSP,SPdest,SPhour)
-colnames(originalRoute) <- c("west","origin","destination","epochtime","orginSP","SPdest","SPhour")
-write.csv(originalRoute,file="originalRoute.csv")
+# export
+write.csv(agg,"dataA.csv",row.names=F)
 ```
------
-The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination over the 3 potential reroute options. Values returned by the Google Maps API include 3 different durations: pessimistic guess, best guess, and optimistic guess. The Google Maps API is called over 10,000 times.
+
+The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
 ``` sh
-## This program finds the duration, in minutes, to all reported I-90 
-## destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
-## given a departure time via the Google Maps Distance Matrix API
+// This script creates a contiguity weighting matrix by
+// merging the original dataset with the US Census TIGER
+// shapefile
+
+import delimited "/Users/Bradley/Dropbox/..."
+
+//  unzip TIGER file and generate fips pre merge
+copy ~/Downloads/tl_2016_us_county.zip .
+unzipfile tl_2016_us_county.zip
+spshape2dta tl_2016_us_county
+use tl_2016_us_county, clear
+describe
+list in 1/2
+generate long fips = real(STATEFP + COUNTYFP)
+bysort fips: assert _N==1
+assert fips != .
+spset fips, modify replace
+list in 1/2
+save, replace
+
+// format original data pre merge
+format year %tq
+assert fips!=.
+assert year!=.
+bysort fips year: assert _N==1
+xtset, clear
+xtset fips year
+spbalance
+spset fips
+save "/Users/Bradley/Dropbox/..."
+
+// merge orignial data with TIGER by fips
+use dataA, clear
+describe
+merge m:1 fips using tl_2016_us_county
+keep if _merge==3
+drop _merge
+drop STATEFP COUNTYFP COUNTYNS GEOID NAME NAMELSAD LSAD CLASSFP
+drop MTFCC CSAFP CBSAFP METDIVFP FUNCSTAT ALAND AWATER INTPTLAT INTPTLON
+save "/Users/Bradley/Dropbox/..."
+
+// create contiguity matrix
+spmatrix create contiguity W if year == 2007
+```
+
+The following R code fits data to a lognormal distribution and then samples from the fitted distribution to find the first three moments (and the median).
+
+``` sh
+## This program fits a log-normal distribution to sample data based on outcomes 
+## and quantiles. Simulates two-state models through 10,000 samples. Computes
+## the mean, median, variance, and skewness.
 
 setwd("/Users/Bradley/Dropbox/...")
 
-library(bitops)
-library(httr)
-library(XML)
-library(RCurl)
-library(rJava)
-library(xlsxjars)
-library(xlsx)
 library(progress)
+library(rriskDistributions)
+library(moments)
 
-# read in data
-input <- read.csv("inputRoutes.csv",header=F)
-allData <- as.matrix(input)
-colnames(allData) <- NULL
-numRow <- nrow(allData)
-penalty <- 10050
-snoqPass <- "SNOQUALMIE+PASS+WA"
-stevPass <- "STEVENS+PASS+WA"
-drive <- c("pessimistic","best_guess","optimistic")
-key <- "sign_up_for_a_key"
+sampleData <- read.csv("meanVarData.csv",header=TRUE)
+closure <- c(.2556,1-.2556) # closed, open
+quantilesNear <- c(0.2,0.5,0.8)
+obs <- nrow(sampleData)
 
-# routes from Snoqualmie Pass over wavepoints to final destination
-f.wavepoint <- function(wavepointA,wavepointB,speed){
-  results.A <- matrix(nrow=numRow,ncol=1)
-  results.B <- matrix(nrow=numRow,ncol=1)
-  results.C <- matrix(nrow=numRow,ncol=1)
-  results.out <- matrix(nrow=numRow,ncol=1)
-  pb <- progress_bar$new(total = numRow)
-  for(i in 1:numRow){
-    tempTime <- 0
-    
-    # routes from SP to first wavepoint
-    k <- 0
-    while(is.na(results.A[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+# fits 3 quantiles to log-normal distribution
+fitLog <- function(info,numObs,quant,tolerance){
+  output <- matrix(NA,numObs,2)
+  for(i in 1:numObs){
+    temp <- get.lnorm.par(p=quant,q=c(info[i,1],info[i,2],info[i,3]),show.output=F,plot=F,tol=tolerance)
+    output[i,1] <- temp[[1]]
+    if(is.na(output[i,1])){
+      output[i,2] <- NA
+    }
+    else{
+      output[i,2] <- temp[[2]]
+    }
+  }
+  output
+}
+
+# returns which observations could not be fit to a log-normal distribution
+# i.e. does not meet tolerance level
+meetTol <- function(params){
+  output <- c()
+  for(i in 1:obs){
+    if(is.na(params[i])){
+      output <- c(output,i)
+    }
+  }
+  output
+}
+
+log1 <- fitLog(two[,2:4],obs,quantilesNear,0.01)
+log2 <- fitLog(two[,5:7],obs,quantilesNear,0.01)
+
+meetTol(log1)
+meetTol(log2)
+
+# drop the invalid observations for the whole dataset
+drop <- c(meetTol(log1),meetTol(log2))
+log1Drop <- log1[-drop,]
+log2Drop <- log2[-drop,]
+sampleDataDrop <- sampleData[-drop,]
+obs <- nrow(routes)
+
+# simulates log-normal samples for a two-state model and outputs the first 3 moments and the median
+sampleDistPass <- function(logDroppedOpen,logDroppedClosed,size){
+  output <- matrix(NA,obs,4)
+  pb <- progress_bar$new(total = obs)
+  for(i in 1:obs){
+    hold <- vector(mode="numeric",length=size)
+    for(j in 1:size){
+      rv <- runif(1,0,1)
+      if(rv<closure[2]){
+        hold[j] <- rlnorm(1,logDroppedOpen[i,1],logDroppedOpen[i,2])
       }
       else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+        hold[j] <- rlnorm(1,logDroppedClosed[i,1],logDroppedClosed[i,2])
       }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),error=function(e) NULL)
-      k <- k+1
     }
-    tempTime <- as.numeric(allData[i,4]) + results.A[i]
-    
-    # routes from first wavepoint to second wavepoint
-    k <- 0
-    while(is.na(results.B[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    tempTime <- tempTime + results.B[i]
-    
-    # routes from second wavepoint to final destination
-    k <- 0
-    while(is.na(results.C[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    
-    # output
-    results.out[i] <- (results.A[i] + results.B[i] + results.C[i])/60
+    output[i,1] <- mean(hold)
+    output[i,2] <- median(hold)
+    output[i,3] <- var(hold)
+    output[i,4] <- skewness(hold)
+  
     pb$tick()
   }
-  results.out
+  output
 }
 
-# routes from Snoqualmie Pass over wavepoints to final destination
-f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
-  results.A <- matrix(nrow=numRow,ncol=1)
-  results.B <- matrix(nrow=numRow,ncol=1)
-  results.C <- matrix(nrow=numRow,ncol=1)
-  results.D <- matrix(nrow=numRow,ncol=1)
-  results.out <- matrix(nrow=numRow,ncol=1)
-  pb <- progress_bar$new(total = numRow)
-  for(i in 1:numRow){
-    
-    # routes from SP to first wavepoint
-    k <- 0
-    while(is.na(results.A[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    tempTime <- as.numeric(allData[i,4]) + results.A[i]
-    
-    # routes from first wavepoint to Stevens Pass
-    k <- 0
-    while(is.na(results.B[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',stevPass,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',stevPass,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    tempTime <- tempTime + results.B[i] + penalty
-    
-    # routes from Stevens Pass to second wavepoint
-    k <- 0
-    while(is.na(results.C[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      stevPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      stevPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    tempTime <- tempTime + results.C[i]
-    
-    # routes from second wavepoint to final destination
-    k <- 0
-    while(is.na(results.D[i]) && k<10){
-      if(allData[i,1] == 1){
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      else{
-        url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
-      }
-      Sys.sleep(0.3)
-      tie <- xmlParse(GET(url))
-      tryCatch(results.D[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
-      k <- k+1
-    }
-    
-    results.out[i] <- (results.A[i] + results.B[i] + penalty + results.C[i] + results.D[i])/60
-    pb$tick()
-  }
-  results.out
-}
-
-
-for(j in 1:3){
-  route2 <- f.wavepoint("Leavenworth+WA","Sultan+WA",drive[j])
-  route2plus <- f.wavepointPLUS("Leavenworth+WA","Sultan+WA",drive[j])
-  route12 <- f.wavepoint("Gleed+WA","Fern+Gap+WA",drive[j])
-  route84 <- f.wavepoint("Goldendale+WA","Rooster+Rock+Park+OR",drive[j])
-  
-  altRoutes <- cbind(allData,route2,route2plus,route12,route84)
-  colnames(altRoutes) <- c("west","origin","destination","epochtime","route2","route2plus","route12","route84")
-  write.xlsx(altRoutes,file="altRoutes.xlsx",sheetName=drive[j],col.names=T,row.names=F,append=T)
-  
-  route2 <- NULL
-  route2plus <- NULL
-  route12 <- NULL
-  route84 <- NULL
-}
+results <- sampleDistPass(log1Drop,log2Drop,10000)
 ```
------
-The following R code calculates the prospect maximizing route for 1600+ combinations of the CPT parameters in the loss domain using the preferred route as the reference point.
-
