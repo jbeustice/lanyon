@@ -3,17 +3,23 @@ layout: page
 title: Machine Learning
 ---
 
-My language of choice for supervised and unsupervised learning is R; however, I run models in Spark (using Scala) for larger projects. Currently, I am familiarizing myself with machine learning in Python.
+My language of choice for supervised and unsupervised learning is R; however, I run models in Spark (using Scala) for larger projects. Currently, I am familiarizing myself with implementing machine learning models in Python.
 
 ## Projects
 
 The following projects can be found on my GitHub [account](https://github.com/jbeustice/machineLearning).
 
+#### R
+* Linear regression using housing data (from Zillow)
+* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle)
+* Kmeans clustering using housing data (from Zillow)
+* Priciple Components Analysis using FIFA 2019 player data (from Kaggle)
+
 #### Spark (Scala)
-* Linear regression using housing data (from Zillow) [using Spark (Scala)]
-* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle) [using Spark (Scala)]
-* Kmeans clustering using housing data (from Zillow) [using Spark (Scala)]
-* Priciple Components Analysis using FIFA 2019 player data (from Kaggle) [using Spark (Scala)]
+* Linear regression using housing data (from Zillow)
+* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle)
+* Kmeans clustering using housing data (from Zillow)
+* Priciple Components Analysis using FIFA 2019 player data (from Kaggle)
 
 ## Code snippets
 
