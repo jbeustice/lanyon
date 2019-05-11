@@ -7,12 +7,12 @@ My language of choice for supervised and unsupervised learning is R; however, I 
 
 ## Projects
 
-The following projects can be found on my GitHub [account](https://github.com/jbeustice/pastCode).
+The following projects can be found on my GitHub [account](https://github.com/jbeustice/machineLearning).
 
-* Linear regression using Zillow housing data [using Scala and Spark]
-* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle) [using Scala and Spark]
-* Kmeans clustering using Zillow housing data [using Scala and Spark]
-* Priciple Components Analysis using FIFA 2019 player data (Kaggle) [using Scala and Spark]
+* Linear regression using housing data (from Zillow) [using Spark (Scala)]
+* Binary classification (i.e., Logistic regression) with k-fold cross-validation using misquito disease results data (from Kaggle) [using Spark (Scala)]
+* Kmeans clustering using housing data (from Zillow) [using Spark (Scala)]
+* Priciple Components Analysis using FIFA 2019 player data (from Kaggle) [using Spark (Scala)]
 
 ## Code snippets
 
