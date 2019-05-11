@@ -28,8 +28,8 @@ My statement on teaching can be found [here]({{ site.baseurl }}/assets/teaching_
 ## Sample Materials
 
 * Sample [homework]({{ site.baseurl }}/Econ476/sample_hw.pdf)
-<!-- * Sample [quiz]({{ site.baseurl }}/Econ476/sample_quiz.pdf)-->
-<!-- * Sample [exam]({{ site.baseurl }}/Econ476/sample_exam.pdf)-->
+* Sample [quiz]({{ site.baseurl }}/Econ476/sample_quiz.pdf)
+* Sample [exam]({{ site.baseurl }}/Econ476/sample_exam.pdf)
 
 ## Student Ratings
 
