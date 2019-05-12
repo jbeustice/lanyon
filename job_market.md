@@ -47,11 +47,12 @@ pb <- progress_bar$new(total = numRow)
 for(i in 1:numRow){
   k <- 0
   while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',allData[i,2],
-                  '&destinations=',snoqPass,'&units=imperial')
+    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                  allData[i,2],'&destinations=',snoqPass,'&units=imperial')
     Sys.sleep(1)
     tie <- xmlParse(GET(url))
-    tryCatch(originSP[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60, error=function(e) NULL)
+    tryCatch(originSP[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60,
+             error=function(e) NULL)
     k <- k+1
   }
   pb$tick()
@@ -63,11 +64,12 @@ pb <- progress_bar$new(total = numRow)
 for(i in 1:numRow){
   k <- 0
   while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',snoqPass,
-                  '&destinations=',allData[i,3],'&units=imperial')
+    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                  snoqPass,'&destinations=',allData[i,3],'&units=imperial')
     Sys.sleep(1)
     tie <- xmlParse(GET(url))
-    tryCatch(SPdest[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60, error=function(e) NULL)
+    tryCatch(SPdest[i,1] <- as.numeric(xpathApply(tie,"//duration/value",xmlValue))/60,
+             error=function(e) NULL)
     k <- k+1
   }
   pb$tick()
@@ -79,12 +81,13 @@ pb <- progress_bar$new(total = numRow)
 for(i in 1:numRow){
   k <- 0
   while(k<4){
-    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',snoqPass,
-                  '&destinations=',allData[i,3],'&units=imperial&departure_time=',allData[i,4],
-                  '&traffic_model=',drive,'&key=',key)
+    url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
+                  snoqPass,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
+                  allData[i,4],'&traffic_model=',drive,'&key=',key)
     Sys.sleep(1)
     tie <- xmlParse(GET(url))
-    tryCatch(SPhour[i,1] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue))/60, error=function(e) NULL)
+    tryCatch(SPhour[i,1] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue))/60,
+             error=function(e) NULL)
     k <- k+1
   }
   pb$tick()
@@ -149,7 +152,8 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),error=function(e) NULL)
+      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     tempTime <- as.numeric(allData[i,4]) + results.A[i]
@@ -169,7 +173,8 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     tempTime <- tempTime + results.B[i]
@@ -189,7 +194,8 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     
@@ -225,7 +231,8 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.A[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     tempTime <- as.numeric(allData[i,4]) + results.A[i]
@@ -245,7 +252,8 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.B[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     tempTime <- tempTime + results.B[i] + penalty
@@ -265,7 +273,8 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.C[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     tempTime <- tempTime + results.C[i]
@@ -285,7 +294,8 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
-      tryCatch(results.D[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)), error=function(e) NULL)
+      tryCatch(results.D[i] <- as.numeric(xpathApply(tie,"//duration_in_traffic/value",xmlValue)),
+               error=function(e) NULL)
       k <- k+1
     }
     
