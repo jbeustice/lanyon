@@ -136,7 +136,8 @@ obs <- nrow(sampleData)
 fitLog <- function(info,numObs,quant,tolerance){
   output <- matrix(NA,numObs,2)
   for(i in 1:numObs){
-    temp <- get.lnorm.par(p=quant,q=c(info[i,1],info[i,2],info[i,3]),show.output=F,plot=F,tol=tolerance)
+    temp <- get.lnorm.par(p=quant,q=c(info[i,1],info[i,2],info[i,3])
+                          ,show.output=F,plot=F,tol=tolerance)
     output[i,1] <- temp[[1]]
     if(is.na(output[i,1])){
       output[i,2] <- NA
@@ -173,7 +174,8 @@ log2Drop <- log2[-drop,]
 sampleDataDrop <- sampleData[-drop,]
 obs <- nrow(routes)
 
-# simulates log-normal samples for a two-state model and outputs the first 3 moments and the median
+# simulates log-normal samples for a two-state model
+# and outputs the first 3 moments and the median
 sampleDistPass <- function(logDroppedOpen,logDroppedClosed,size){
   output <- matrix(NA,obs,4)
   pb <- progress_bar$new(total = obs)
