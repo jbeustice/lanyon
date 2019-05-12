@@ -117,7 +117,7 @@ println(outcome.confusionMatrix)
 ```
 
 The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
-``` sh
+``` stata
 // This script creates a contiguity weighting matrix by
 // merging the original dataset with the US Census TIGER
 // shapefile
