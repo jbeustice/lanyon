@@ -1,31 +1,31 @@
 # Permalinks
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
-permalink:           pretty
+permalink:          pretty
 
 # code highlighting
-highlighter: rouge
+highlighter:        rouge
 
 # Dependencies
-markdown:         kramdown
+markdown:           kramdown
 
 # Setup
-title:               J. Bradley Eustice
-tagline:             'Ph.D. Candidate [Economics], M.S. [Statistics]'
-description:         'Ph.D. Candidate [Economics]<br>M.S. [Statistics]<br>Instructor [WSU]'
-url:                 https://jbradleyeustice.com
-site:                https://jbradleyeustice.com
-baseurl:             '/'
-paginate:            10
+title:              J. Bradley Eustice
+tagline:            'Ph.D. Candidate [Economics], M.S. [Statistics]'
+description:        'Ph.D. Candidate [Economics]<br>M.S. [Statistics]<br>Instructor [WSU]'
+url:                https://jbradleyeustice.com
+site:               https://jbradleyeustice.com
+baseurl:            '/'
+paginate:           10
 
 # Google Analytics
-google_analytics: UA-112425001-1
+google_analytics:   UA-112425001-1
 
 # About/contact
 author:
-  name:              J. Bradley Eustice
-  url:               https://jbradleyeustice.com
-  email:             jbradleyeustice@gmail.com
+  name:             J. Bradley Eustice
+  url:              https://jbradleyeustice.com
+  email:            jbradleyeustice@gmail.com
 
 github:
-  repo:           https://github.com/jbeustice/mySite
+  repo:             https://github.com/jbeustice/mySite
