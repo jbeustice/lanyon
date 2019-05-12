@@ -68,7 +68,7 @@ write.csv(agg,"dataA.csv",row.names=F)
 ```
 
 The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
-```md
+```
 // This script creates a contiguity weighting matrix by
 // merging the original dataset with the US Census TIGER
 // shapefile
