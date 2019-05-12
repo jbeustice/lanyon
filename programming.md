@@ -20,7 +20,7 @@ The following projects can be found on my GitHub [account](https://github.com/jb
 ## Code snippets
 
 The following R code reshapes and merges multiple files into one longitudinal dataset.
-``` sh
+``` r
 ## This script reads in multiple files, reshapes the data in
 ## panel format, and merges all data into one dataset for
 ## further analysis
@@ -68,7 +68,7 @@ write.csv(agg,"dataA.csv",row.names=F)
 ```
 
 The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
-``` sh
+``` do
 // This script creates a contiguity weighting matrix by
 // merging the original dataset with the US Census TIGER
 // shapefile
@@ -116,7 +116,7 @@ spmatrix create contiguity W if year == 2007
 
 The following R code fits data to a lognormal distribution and then samples from the fitted distribution to find the first three moments (and the median).
 
-``` sh
+``` r
 ## This program fits a log-normal distribution to sample data based on outcomes 
 ## and quantiles. Simulates two-state models through 10,000 samples. Computes
 ## the mean, median, variance, and skewness.
