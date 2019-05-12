@@ -150,7 +150,7 @@ fitLog <- function(info,numObs,quant,tolerance){
 }
 
 # returns which observations could not be fit to a log-normal distribution
-# i.e. does not meet tolerance level
+# i.e., does not meet tolerance level
 meetTol <- function(params){
   output <- c()
   for(i in 1:obs){
