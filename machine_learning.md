@@ -107,7 +107,10 @@ val cvModel = pipeline.fit(training)
 // evaluation --> need to convert to RDD (from df)
 import org.apache.spark.mllib.evaluation.MulticlassMetrics
 
-val predictionAndLabels = cvModel.transform(test).select($"prediction",$"label").as[(Double, Double)].rdd
+val predictionAndLabels = cvModel.transform(test)
+                                 .select($"prediction",$"label")
+                                 .as[(Double, Double)]
+                                 .rdd
 
 val outcome = new MulticlassMetrics(predictionAndLabels)
 
