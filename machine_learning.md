@@ -24,7 +24,7 @@ The following projects can be found on my GitHub [account](https://github.com/jb
 ## Code snippets
 
 The following Spark (Scala) code reshapes and merges multiple files into one longitudinal dataset.
-``` javascript
+``` scala
 /**
  * Logistic regression with k-fold cross-validation using Spark (Scala)
  */
