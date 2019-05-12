@@ -97,7 +97,7 @@ write.csv(originalRoute,file="originalRoute.csv")
 ```
 -----
 The following R code calls the Google Maps Distance Matrix API to return the duration from Snoqualmie Pass to each reported destination over the 3 potential reroute options. Values returned by the Google Maps API include 3 different durations: pessimistic guess, best guess, and optimistic guess. The Google Maps API is called over 10,000 times.
-``` sh
+``` r
 ## This program finds the duration, in minutes, to all reported I-90 
 ## destinations from Snoqualmie Pass over three alternatives (2, 12, 84)
 ## given a departure time via the Google Maps Distance Matrix API
@@ -314,7 +314,7 @@ for(j in 1:3){
 ```
 -----
 The following R code calculates the prospect maximizing route for 1600+ combinations of the CPT parameters in the loss domain using the preferred route as the reference point.
-```sh
+``` r
 ## This program calculates the prospect of each route from the SP reference point
 ## for multiple values of lambda, beta, and delta and returns which combinations
 ## predict the stated preference of drivers.
