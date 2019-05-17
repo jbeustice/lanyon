@@ -138,9 +138,8 @@ min(test.err)
 
 # best model RMSE for test data
 test.err[length(num.trees)]
-
 ```
-
+-----
 The following Spark (Scala) code predicts the presence of West Nile virus among misquito populations in Chicago via logistic regression (classification). The data is trained by k-fold cross-validation.
 ``` scala
 /**
