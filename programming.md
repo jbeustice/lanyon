@@ -66,7 +66,7 @@ agg <- merge(agg,unemp,by=c("COUNTY","YEAR"))
 # export
 write.csv(agg,"dataA.csv",row.names=F)
 ```
-
+-----
 The following .do file [Stata] merges datasets together to create a contiguity weighting matrix used in spatial analysis.
 ```
 // This script creates a contiguity weighting matrix by
@@ -113,7 +113,7 @@ save "/Users/Bradley/Dropbox/..."
 // create contiguity matrix
 spmatrix create contiguity W if year == 2007
 ```
-
+-----
 The following R code fits data to a lognormal distribution and then samples from the fitted distribution to find the first three moments (and the median).
 
 ```r
