@@ -209,7 +209,7 @@ import org.apache.spark.ml.Pipeline
 
 val lr = new LogisticRegression().setMaxIter(10)
 
-val paramGrid = new ParamGridBuilder().addGrid(lr.regParam, Array(0.1, 0.01)).build()
+val paramGrid = new ParamGridBuilder().addGrid(lr.regParam,Array(0.1, 0.01)).build()
 
 // cv requires an Estimator, a set of Estimator ParamMaps, and an Evaluator
 // 5-fold cv
