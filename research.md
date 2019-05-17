@@ -18,7 +18,7 @@ The title of my dissertation is *Topics in Spatial-Temporal Economics*. The pape
 2. A (Statistical) Moment in Time and Space: Detecting the Significance of Skewness on Route Choice
 3. Asset Appreciation and Voting Patterns in Presidential Elections
 
-The first paper looks at reference-point updating (a feature of [Prospect Theory](https://en.wikipedia.org/wiki/Prospect_theory)) within periods. The second paper adds evidence to whether including the 3rd moment (i.e. skewness) is useful in predicting the preferred route. The last paper explores whether or not the rise and fall of housing markets influence voting preferences in U.S. presedential elections.
+The first paper looks at reference-point updating (a feature of [Prospect Theory](https://en.wikipedia.org/wiki/Prospect_theory)) within periods. The second paper adds evidence to whether including the 3rd moment (i.e. skewness) is useful in predicting the preferred route. The last paper explores whether or not the rise and fall of housing markets influence voting preferences in U.S. presidential elections.
 
 More information about my job market paper can be found [here]({{ site.baseurl }}/job_market).
 
