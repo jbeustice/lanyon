@@ -145,13 +145,15 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
     while(is.na(results.A[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+                      snoqPass,'&destinations=',wavepointA,
+                      '&units=imperial&departure_time=',allData[i,4],'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+                      snoqPass,'&destinations=',wavepointB,
+                      '&units=imperial&departure_time=',allData[i,4],'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -166,13 +168,15 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
     while(is.na(results.B[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointA,'&destinations=',wavepointB,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointB,'&destinations=',wavepointA,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -187,13 +191,15 @@ f.wavepoint <- function(wavepointA,wavepointB,speed){
     while(is.na(results.C[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointB,'&destinations=',allData[i,3],
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model='
+                      ,speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointA,'&destinations=',allData[i,3],
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -224,13 +230,15 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     while(is.na(results.A[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+                      snoqPass,'&destinations=',wavepointA,
+                      '&units=imperial&departure_time=',allData[i,4],'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      snoqPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      allData[i,4],'&traffic_model=',speed,'&key=',key)
+                      snoqPass,'&destinations=',wavepointB,
+                      '&units=imperial&departure_time=',allData[i,4],'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -245,13 +253,15 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     while(is.na(results.B[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',stevPass,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointA,'&destinations=',stevPass,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',stevPass,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointB,'&destinations=',stevPass,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -266,13 +276,15 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     while(is.na(results.C[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      stevPass,'&destinations=',wavepointB,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      stevPass,'&destinations=',wavepointB,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      stevPass,'&destinations=',wavepointA,'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      stevPass,'&destinations=',wavepointA,
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -287,13 +299,16 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
     while(is.na(results.D[i]) && k<10){
       if(allData[i,1] == 1){
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointB,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointB,'&destinations=',allData[i,3],
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
       }
       else{
         url <- paste0('https://maps.googleapis.com/maps/api/distancematrix/xml?origins=',
-                      wavepointA,'&destinations=',allData[i,3],'&units=imperial&departure_time=',
-                      tempTime,'&traffic_model=',speed,'&key=',key)
+                      wavepointA,'&destinations=',allData[i,3],
+                      '&units=imperial&departure_time=',tempTime,'&traffic_model=',
+                      speed,'&key=',key)
+                      
       }
       Sys.sleep(0.3)
       tie <- xmlParse(GET(url))
@@ -316,8 +331,10 @@ for(j in 1:3){
   route84 <- f.wavepoint("Goldendale+WA","Rooster+Rock+Park+OR",drive[j])
   
   altRoutes <- cbind(allData,route2,route2plus,route12,route84)
-  colnames(altRoutes) <- c("west","origin","destination","epochtime","route2","route2plus","route12","route84")
-  write.xlsx(altRoutes,file="altRoutes.xlsx",sheetName=drive[j],col.names=T,row.names=F,append=T)
+  colnames(altRoutes) <- c("west","origin","destination","epochtime",
+                           "route2","route2plus","route12","route84")
+  write.xlsx(altRoutes,file="altRoutes.xlsx",sheetName=drive[j],
+             col.names=T,row.names=F,append=T)
   
   route2 <- NULL
   route2plus <- NULL
