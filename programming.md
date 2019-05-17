@@ -27,6 +27,7 @@ The following R code reshapes and merges multiple files into one longitudinal da
 
 setwd("/Users/Bradley/Dropbox/...")
 
+# load required packages
 library(reshape2)
 
 # load variables
@@ -123,10 +124,12 @@ The following R code fits data to a lognormal distribution and then samples from
 
 setwd("/Users/Bradley/Dropbox/...")
 
+# load required packages
 library(progress)
 library(rriskDistributions)
 library(moments)
 
+# load data
 sampleData <- read.csv("meanVarData.csv",header=TRUE)
 closure <- c(.2556,1-.2556) # closed, open
 quantilesNear <- c(0.2,0.5,0.8)
