@@ -29,7 +29,7 @@ The following R code predicts the overall score assigned to each player in the F
 ## This program predicts the overall player score of soccor players in
 ## the FIFA 2019 database using random forests and boosting.
 
-setwd("/Users/Bradley/Dropbox/...")
+setwd("/Users/Bradley/Dropbox/website/machine_learning/")
 
 ## load required libraries
 library(randomForest)
@@ -80,11 +80,13 @@ for(i in 1:20){
 }
 
 # plot mtry data
-plot(1:i,oob.err,pch=19,col="red",type="b",ylab="Mean Squared Error",xlab="mtry values 1 to 20",main="Out-of-bag Error")
+plot(1:i,oob.err,pch=19,col="red",type="b",ylab="Mean Squared Error",
+     xlab="mtry values 1 to 20",main="Out-of-bag Error")
 which.min(oob.err)
 
 # validate on test data with tunned parameters
-rf_test <- randomForest(Overall~.,data=training,xtest=test[,-1],ytest=test$Overall,mtry=7,ntree=500,importance=T)
+rf_test <- randomForest(Overall~.,data=training,xtest=test[,-1],
+                        ytest=test$Overall,mtry=7,ntree=500,importance=T)
 rf_test
 
 # view variable importance
@@ -95,18 +97,17 @@ varImpPlot(rf_test)
 ## Boosting
 ############
 
-boost <- gbm(Overall~.,data=training,distribution="gaussian",n.trees=10000,shrinkage=0.01,interaction.depth=4)
-summary(boost)
-
-hyper_grid <- expand.grid(shrinkage=c(.001,.01,.1),interaction.depth=c(1,3,5),n.minobsinnode=c(10,20))
-
+# create grid to tune parameters
+hyper_grid <- expand.grid(shrinkage=c(.001,.01,.1),interaction.depth=c(1,3,5),
+                          n.minobsinnode=c(10,20))
 
 # grid search 
 for(i in 1:nrow(hyper_grid)){
   
   # train model
   boost.tune <- gbm(Overall~.,data=training,distribution="gaussian",n.trees=10000,
-                    interaction.depth=hyper_grid$interaction.depth[i],shrinkage=hyper_grid$shrinkage[i],
+                    interaction.depth=hyper_grid$interaction.depth[i],
+                    shrinkage=hyper_grid$shrinkage[i],
                     n.minobsinnode=hyper_grid$n.minobsinnode[i],train.fraction=.75)
   
   # add min training error and trees to grid
@@ -119,14 +120,16 @@ for(i in 1:nrow(hyper_grid)){
 hyper_grid[order(hyper_grid$min_RMSE),]
 
 # build best model and validate on test data
-boost <- gbm(Overall~.,data=training,distribution="gaussian",n.trees=4600,shrinkage=0.1,interaction.depth=5)
+boost <- gbm(Overall~.,data=training,distribution="gaussian",n.trees=4600,
+             shrinkage=0.1,interaction.depth=5)
 summary(boost)
 
 # plot RMSE results
 num.trees=seq(from=100,to=4600,by=100)
 test.pred <- predict(boost,newdata=test,n.trees=num.trees)
 test.err <- with(test,apply(sqrt((test.pred-Overall)^2),2,mean))
-plot(num.trees,test.err,pch=19,col="red",type="b",ylab="Root Mean Squared Error", xlab="# Trees",main="Boosting Test Error")
+plot(num.trees,test.err,pch=19,col="red",type="b",ylab="Root Mean Squared Error",
+     xlab="# Trees",main="Boosting Test Error")
 
 # compare best model to test data
 which.min(test.err)
@@ -134,6 +137,7 @@ min(test.err)
 
 # best model RMSE for test data
 test.err[length(num.trees)]
+
 ```
 
 The following Spark (Scala) code predicts the presence of West Nile virus among misquito populations in Chicago via logistic regression (classification). The data is trained by k-fold cross-validation.
@@ -170,12 +174,14 @@ val transform_data = (new StringIndexer()
                     .transform(wn_data))
 
 val ready_dataAll = transform_data.select(transform_data("resultIndex").as("label"),
-                                      $"TRAP_TYPE",$"SPECIES",$"WEEK",$"NUMBER OF MOSQUITOES")
+                             $"TRAP_TYPE",$"SPECIES",$"WEEK",$"NUMBER OF MOSQUITOES")
 
 val ready_data = ready_dataAll.na.drop()
 
-val trapIndexer = new StringIndexer().setInputCol("TRAP_TYPE").setOutputCol("traptypeIndex")
-val speciesIndexer = new StringIndexer().setInputCol("SPECIES").setOutputCol("speciesIndex")
+val trapIndexer = (new StringIndexer().setInputCol("TRAP_TYPE")
+                                      .setOutputCol("traptypeIndex"))
+val speciesIndexer = (new StringIndexer().setInputCol("SPECIES")
+                                         .setOutputCol("speciesIndex"))
 
 val encoder = (new OneHotEncoderEstimator()
               .setInputCols(Array("traptypeIndex","speciesIndex"))
@@ -212,7 +218,8 @@ val cv = (new CrossValidator()
          .setEstimatorParamMaps(paramGrid)
          .setNumFolds(5))
 
-val pipeline = new Pipeline().setStages(Array(trapIndexer,speciesIndexer,encoder,assemble,cv))
+val pipeline = new Pipeline().setStages(Array(trapIndexer,speciesIndexer,
+                                              encoder,assemble,cv))
 
 // run cv and choose the best set of parameters.
 val cvModel = pipeline.fit(training)
