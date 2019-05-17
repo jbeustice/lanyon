@@ -29,7 +29,7 @@ The following R code predicts the overall score assigned to each player in the F
 ## This program predicts the overall player score of soccor players in
 ## the FIFA 2019 database using random forests and boosting.
 
-setwd("/Users/Bradley/Dropbox/website/machine_learning/")
+setwd("/Users/Bradley/Dropbox/...")
 
 ## load required libraries
 library(randomForest)
@@ -43,7 +43,7 @@ f_data <- na.omit(f_data)
 f_data$Weight <- as.character(f_data$Weight)
 f_data$Weight <- as.numeric(substr(f_data$Weight,1,nchar(f_data$Weight)-3))
 f_data$Height <- as.character(f_data$Height)
-f_data$Height <- (as.numeric(substr(f_data$Height,1,1)) * 12) + as.numeric(substr(f_data$Height,3,5))
+f_data$Height <- (as.numeric(substr(f_data$Height,1,1))*12)+as.numeric(substr(f_data$Height,3,5))
 f_data$Preferred.Foot <- droplevels(f_data$Preferred.Foot)
 str(f_data)
 rows <- nrow(f_data)
