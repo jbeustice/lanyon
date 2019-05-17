@@ -7,7 +7,7 @@ My language of choice for supervised and unsupervised learning is R; however, I 
 
 ## Projects
 
-The following projects can be found on my GitHub [account](https://github.com/jbeustice/machineLearning).
+The following scripts can be found on my GitHub [account](https://github.com/jbeustice/machineLearning).
 
 #### R
 * K-nearest neighbors trained with k-fold cross-validation using housing data (from Zillow)
