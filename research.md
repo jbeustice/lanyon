@@ -5,11 +5,7 @@ title: Research
 
 My research can be broadly defined as touching economic questions as they relate to both time and space. For most of my graduate career, I have been funded by the [Freight Transportation Research Institute](http://ses.wsu.edu/fpti/) within the School of Economic Sciences at WSU; hence, my research tends to use transportation related data to answer economic questions. I have also dabbled in the economics of housing markets.
 
-My research interests are in applied microeconomics, applied econometrics, and behavioral economics.
-
-#### Research Statement
-
-My statement on research can be found [here]({{ site.baseurl }}/assets/research_statement.pdf).
+My research interests are in applied microeconomics, applied econometrics, and behavioral economics. My statement on research can be found [here]({{ site.baseurl }}/assets/research_statement.pdf).
 
 ## Dissertation
 The title of my dissertation is *Topics in Spatial-Temporal Economics*. The papers that make up my dissertation are:
