@@ -317,7 +317,7 @@ f.wavepointPLUS <- function(wavepointA,wavepointB,speed){
       k <- k+1
     }
     
-    results.out[i] <- (results.A[i] + results.B[i] + penalty + results.C[i] + results.D[i])/60
+    results.out[i] <- (results.A[i]+results.B[i]+penalty+results.C[i]+results.D[i])/60
     pb$tick()
   }
   results.out
