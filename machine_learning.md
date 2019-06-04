@@ -20,7 +20,7 @@ The following scripts can be found on my GitHub [account](https://github.com/jbe
 * Linear regression using housing data (from Zillow)
 * Binary classification (i.e., Logistic regression) trained by k-fold cross-validation using misquito disease data (from Kaggle) ... also can be viewed below.
 * K-means clustering using housing data (from Zillow)
-* Priciple Components Analysis using FIFA 2019 player data (from Kaggle)
+* Principle Components Analysis using FIFA 2019 player data (from Kaggle)
 
 ## Code snippets
 
