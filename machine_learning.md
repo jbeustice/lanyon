@@ -23,7 +23,7 @@ The following scripts can be found on my GitHub [account](https://github.com/jbe
 * Principle Component Analysis using FIFA 2019 player data (from Kaggle)
 
 #### Python
-* Bag-of-words using Naive Bayes and support vector machines for classification on IMDb movie reviews (compiled by [Andrew Mass](http://ai.stanford.edu/~amaas/data/sentiment/))
+* Bag-of-words using Naive Bayes and support vector machines to classifiy IMDb movie reviews (compiled by [Andrew Mass](http://ai.stanford.edu/~amaas/data/sentiment/))
 
 ## Code snippets
 
