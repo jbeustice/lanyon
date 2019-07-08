@@ -3,7 +3,7 @@ layout: page
 title: Machine Learning
 ---
 
-My language of choice for supervised and unsupervised learning is R; however, I run models in Spark (using Scala) for larger projects. Currently, I am familiarizing myself with implementing machine learning models in Python.
+My language of choice for supervised and unsupervised learning is R; however, I run models in Spark (using Scala) for larger projects. Currently, I am playing around with deep learning models in Python.
 
 ## Projects
 
@@ -21,6 +21,9 @@ The following scripts can be found on my GitHub [account](https://github.com/jbe
 * Binary classification (i.e., Logistic regression) trained by k-fold cross-validation using misquito disease data (from Kaggle) ... also can be viewed below.
 * K-means clustering using housing data (from Zillow)
 * Principle Component Analysis using FIFA 2019 player data (from Kaggle)
+
+#### Python
+* Naive Bayes and support vector machines on bag-of-words modeling using IMDb movie reviews (compiled by [Andrew Mass](http://ai.stanford.edu/~amaas/data/sentiment/)
 
 ## Code snippets
 
