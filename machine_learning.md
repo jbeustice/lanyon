@@ -24,6 +24,8 @@ The following scripts can be found on my GitHub [account](https://github.com/jbe
 
 #### Python
 * Bag-of-words using Naive Bayes and support vector machines to classifiy IMDb movie reviews (compiled by [Andrew Mass](http://ai.stanford.edu/~amaas/data/sentiment/))
+* Artificial neural network using market segmentation data (from Kaggle)
+* Convolutional neural network using synthesized digits (from Kaggle)
 
 ## Code snippets
 
