@@ -9,7 +9,7 @@ Currently, I am familiarizing myself with Python.
 
 ## Projects
 
-The following projects can be found on my GitHub [account](https://github.com/jbeustice/pastCode).
+The following projects can be found on my GitHub [account](https://github.com/jbeustice/codingPast).
 
 * Text-based Yahtzee [using C]
 * One player text-based Battleship [using C]
